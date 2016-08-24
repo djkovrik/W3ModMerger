@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>icons/w3.ico</file>
+        <file>icons/wolfhead.ico</file>
+        <file>icons/no.ico</file>
+        <file>icons/yes.ico</file>
+        <file>icons/down.ico</file>
+        <file>icons/up.ico</file>
+    </qresource>
+</RCC>
