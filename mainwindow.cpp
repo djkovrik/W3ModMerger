@@ -5,7 +5,6 @@
 #include <QFileInfo>
 #include <QSettings>
 #include <QCloseEvent>
-#include <QDebug>
 
 QTextEdit* MainWindow::log = nullptr;
 
@@ -320,7 +319,7 @@ void MainWindow::showReport()
         if (mod->checked) {
             for (QString file : mod->metadata.filesList) {
                 if (!metadataAll.filesList.contains(file)) {
-                    sendToLog("   " + file + " was not merged! " + "[" + mod->modName + "]");
+                    sendToLog("WARNING: " + file + " was not merged! " + "[" + mod->modName + "]");
                 }
             }
         }
