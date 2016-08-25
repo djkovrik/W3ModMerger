@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QTableWidget>
 #include <QTableWidgetItem>
+#include <QMultiMap>
 
 namespace Ui {
     class MainWindow;
@@ -27,6 +28,7 @@ public:
 
     QList<Mod*> modListFull;
     QList<Mod*> modListMergeable;
+    QMultiMap<QString, QString> conflictsList;
     Settings* settings;
     Merger* merger;
 
@@ -41,6 +43,7 @@ private slots:
     void on_buttonDown_clicked();
     void on_buttonRecommended_clicked();
     void on_buttonDeselect_clicked();
+    void on_buttonConflicts_clicked();
     void on_buttonMerge_clicked();
     void on_buttonUnmerge_clicked();
     // Misc
@@ -69,6 +72,7 @@ private:
     void handleOrderButtons();
     void handleControls();
     void cleanWorkingDirs();
+    void checkForConflicts();
     void closeEvent(QCloseEvent* event);
     bool folderCopy(QString source, QString destination, bool overwrite);
 };

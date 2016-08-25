@@ -141,6 +141,13 @@ void MainWindow::on_buttonDeselect_clicked()
     handleControls();
 }
 
+void MainWindow::on_buttonConflicts_clicked()
+{
+    checkForConflicts();
+
+    /* Show conflicts report */
+}
+
 void MainWindow::on_buttonMerge_clicked()
 {
     if (!settings->isWccSpecified) {
@@ -408,6 +415,7 @@ void MainWindow::handleControls()
         mergeEnabled = false;
     }
 
+    ui->buttonConflicts->setEnabled( !merger->isRunning && mergeEnabled );
     ui->buttonMerge->setEnabled( !merger->isRunning && mergeEnabled );
     ui->buttonUnmerge->setEnabled( !merger->isRunning && unmergeEnabled);
 
@@ -436,6 +444,19 @@ void MainWindow::cleanWorkingDirs()
     uncooked.removeRecursively();
     cooked.removeRecursively();
     packed.removeRecursively();
+}
+
+void MainWindow::checkForConflicts()
+{
+    conflictsList.clear();
+
+    for (auto mod : modListMergeable) {
+        if (mod->checked) {
+            for (auto fileName : mod->metadata.filesList) {
+                conflictsList.insert(fileName, mod->modName);
+            }
+        }
+    }
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
