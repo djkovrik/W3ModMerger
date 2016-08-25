@@ -522,7 +522,6 @@ void MainWindow::refreshConflictsReport()
     QList<QString> keyList = conflicts.keys();
     keyList.erase(std::unique(keyList.begin(), keyList.end()), keyList.end());
     std::sort(keyList.begin(), keyList.end());
-    keyList.erase(std::unique(keyList.begin(), keyList.end()), keyList.end());
 
     for (auto key : keyList) {
         QList<QString> values = conflicts.values(key);
