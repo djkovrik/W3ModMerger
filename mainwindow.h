@@ -28,9 +28,12 @@ public:
 
     QList<Mod*> modListFull;
     QList<Mod*> modListMergeable;
-    QMultiMap<QString, QString> conflictsList;
+    QMultiMap<QString, QString> conflicts;
     Settings* settings;
     Merger* merger;
+
+signals:
+    void modsListChanged();
 
 private slots:
     // Buttons
@@ -39,11 +42,12 @@ private slots:
     void on_actionSettings_triggered();
     void on_tableView_clicked(const QModelIndex& index);
     void on_tableView_customContextMenuRequested(const QPoint& pos);
+    void on_treeWidget_customContextMenuRequested(const QPoint& pos);
     void on_buttonUp_clicked();
     void on_buttonDown_clicked();
     void on_buttonRecommended_clicked();
     void on_buttonDeselect_clicked();
-    void on_buttonConflicts_clicked();
+    void on_buttonConflicts_toggled(bool checked);
     void on_buttonMerge_clicked();
     void on_buttonUnmerge_clicked();
     // Misc
@@ -73,6 +77,7 @@ private:
     void handleControls();
     void cleanWorkingDirs();
     void checkForConflicts();
+    void refreshConflictsReport();
     void closeEvent(QCloseEvent* event);
     bool folderCopy(QString source, QString destination, bool overwrite);
 };

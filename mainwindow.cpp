@@ -6,6 +6,8 @@
 #include <QSettings>
 #include <QCloseEvent>
 
+#include <algorithm>
+
 QTextEdit* MainWindow::log = nullptr;
 
 MainWindow::MainWindow(QWidget* parent) :
@@ -14,6 +16,7 @@ MainWindow::MainWindow(QWidget* parent) :
 {
     ui->setupUi(this);
     log = ui->textEditLog;
+    ui->treeWidget->hide();
     settings = new Settings(this);
     readStoredSettings();
 
@@ -36,6 +39,7 @@ MainWindow::MainWindow(QWidget* parent) :
     }
 
     connect(ui->tableView, &ModTableView::itemDropped, this, &MainWindow::on_dragAndDrop);
+    connect(this, &MainWindow::modsListChanged, this, &MainWindow::checkForConflicts);
 
     handleControls();
 }
@@ -76,6 +80,7 @@ void MainWindow::on_tableView_clicked(const QModelIndex& index)
 
     handleControls();
     handleOrderButtons();
+    emit modsListChanged();
 }
 
 void MainWindow::on_tableView_customContextMenuRequested(const QPoint& pos)
@@ -94,6 +99,26 @@ void MainWindow::on_tableView_customContextMenuRequested(const QPoint& pos)
     menu->popup(ui->tableView->viewport()->mapToGlobal(pos));
 }
 
+void MainWindow::on_treeWidget_customContextMenuRequested(const QPoint& pos)
+{
+    QMenu* menu = new QMenu(this);
+    QAction* actionExpand = new QAction("Expand All", this);
+    QAction* actionCollapse = new QAction("Collapse All", this);
+
+    menu->addAction(actionExpand);
+    menu->addAction(actionCollapse);
+
+    connect(actionExpand, &QAction::triggered,
+            [=]() { ui->treeWidget->expandAll(); }
+    );
+
+    connect(actionCollapse, &QAction::triggered,
+            [=]() { ui->treeWidget->collapseAll(); }
+    );
+
+    menu->popup(ui->treeWidget->viewport()->mapToGlobal(pos));
+}
+
 void MainWindow::on_buttonUp_clicked()
 {
     if (merger->isRunning) {
@@ -104,6 +129,8 @@ void MainWindow::on_buttonUp_clicked()
     ui->tableView->selectRow(currentRow - 1);
     currentRow--;
     handleOrderButtons();
+
+    emit modsListChanged();
 }
 
 void MainWindow::on_buttonDown_clicked()
@@ -116,6 +143,8 @@ void MainWindow::on_buttonDown_clicked()
     ui->tableView->selectRow(currentRow + 1);
     currentRow++;
     handleOrderButtons();
+
+    emit modsListChanged();
 }
 
 void MainWindow::on_buttonRecommended_clicked()
@@ -130,6 +159,8 @@ void MainWindow::on_buttonRecommended_clicked()
     }
 
     handleControls();
+
+    emit modsListChanged();
 }
 
 void MainWindow::on_buttonDeselect_clicked()
@@ -139,13 +170,27 @@ void MainWindow::on_buttonDeselect_clicked()
     }
 
     handleControls();
+
+    emit modsListChanged();
 }
 
-void MainWindow::on_buttonConflicts_clicked()
+void MainWindow::on_buttonConflicts_toggled(bool checked)
 {
-    checkForConflicts();
+    ui->treeWidget->setVisible(checked);
+    ui->buttonMerge->setVisible(!checked);
+    ui->buttonUnmerge->setVisible(!checked);
+    ui->tableView->horizontalHeader()->setStretchLastSection(!checked);
 
-    /* Show conflicts report */
+    if (checked) {
+        ui->tableView->hideColumn(Columns::STATUS);
+        ui->tableView->hideColumn(Columns::NOTES_LAST);
+    }
+    else {
+        ui->tableView->showColumn(Columns::STATUS);
+        ui->tableView->showColumn(Columns::NOTES_LAST);
+    }
+
+    checkForConflicts();
 }
 
 void MainWindow::on_buttonMerge_clicked()
@@ -420,6 +465,7 @@ void MainWindow::handleControls()
     ui->buttonUnmerge->setEnabled( !merger->isRunning && unmergeEnabled);
 
     ui->tableView->setEnabled( !merger->isRunning );
+    ui->treeWidget->setEnabled( !merger->isRunning );
     ui->buttonMods->setEnabled( !merger->isRunning );
     ui->buttonRecommended->setEnabled( !merger->isRunning );
     ui->buttonDeselect->setEnabled( !merger->isRunning );
@@ -448,15 +494,46 @@ void MainWindow::cleanWorkingDirs()
 
 void MainWindow::checkForConflicts()
 {
-    conflictsList.clear();
+    conflicts.clear();
 
     for (auto mod : modListMergeable) {
         if (mod->checked) {
             for (auto fileName : mod->metadata.filesList) {
-                conflictsList.insert(fileName, mod->modName);
+                conflicts.insert(fileName, mod->modName);
             }
         }
     }
+    refreshConflictsReport();
+}
+
+void MainWindow::refreshConflictsReport()
+{
+    QTreeWidget* tree = ui->treeWidget;
+    tree->clear();
+    QTreeWidgetItem* parent = tree->invisibleRootItem();
+
+    QTreeWidgetItem* temp_head;
+    QTreeWidgetItem* temp_item;
+
+    QList<QString> keyList = conflicts.keys();
+    keyList.erase(std::unique(keyList.begin(), keyList.end()), keyList.end());
+    std::sort(keyList.begin(), keyList.end());
+    keyList.erase(std::unique(keyList.begin(), keyList.end()), keyList.end());
+
+    for (auto key : keyList) {
+        QList<QString> values = conflicts.values(key);
+
+        if (values.size() > 1) {
+            temp_head = new QTreeWidgetItem(parent);
+            temp_head->setText(0, key);
+
+            for (auto iter = values.rbegin(); iter != values.rend(); iter++) {
+                temp_item = new QTreeWidgetItem(temp_head);
+                temp_item->setText(0, *iter);
+            }
+        }
+    }
+    ui->treeWidget->resizeColumnToContents(1);
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)

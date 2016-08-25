@@ -6,11 +6,11 @@
 #include <QStyledItemDelegate>
 #include <QAbstractTableModel>
 
+enum Columns { CHECKBOX = 0, MOD_NAME, HAS_BUNDLES, HAS_CACHE, HAS_SCRIPTS, STATUS, NOTES_LAST };
+
 class ModlistModel : public QAbstractTableModel
 {
     Q_OBJECT
-
-    enum Columns { CHECKBOX = 0, MOD_NAME, HAS_BUNDLES, HAS_CACHE, HAS_SCRIPTS, STATUS, NOTES_LAST };
 
 public:
     ModlistModel(QList<Mod*>& mods, QObject* parent = 0);
