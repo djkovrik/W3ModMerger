@@ -155,10 +155,6 @@ void MainWindow::on_buttonMerge_clicked()
         return;
     }
 
-    if (settings->autoCleanEnabled) {
-        cleanWorkingDirs();
-    }
-
     QDir d;
     d.mkpath(settings->pathUncooked);
     d.mkpath(settings->pathCooked);
@@ -214,6 +210,10 @@ void MainWindow::on_mergeFinished()
         folderCopy(src, dest, true);
 
         sendToLog("Merged pack installed to: " + dest);
+    }
+
+    if (settings->autoCleanEnabled) {
+        cleanWorkingDirs();
     }
 
     showReport();
