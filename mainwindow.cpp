@@ -80,7 +80,6 @@ void MainWindow::on_tableView_clicked(const QModelIndex& index)
 
     handleControls();
     handleOrderButtons();
-    emit modsListChanged();
 }
 
 void MainWindow::on_tableView_customContextMenuRequested(const QPoint& pos)
@@ -290,6 +289,7 @@ void MainWindow::on_dragAndDrop(int src, int dest)
     ui->tableView->selectRow(dest);
     currentRow = dest;
     handleOrderButtons();
+    modsListChanged();
 }
 
 /** FUNCTIONS **/
@@ -460,7 +460,7 @@ void MainWindow::handleControls()
         mergeEnabled = false;
     }
 
-    ui->buttonConflicts->setEnabled( !merger->isRunning && mergeEnabled );
+    //ui->buttonConflicts->setEnabled( !merger->isRunning && mergeEnabled );
     ui->buttonMerge->setEnabled( !merger->isRunning && mergeEnabled );
     ui->buttonUnmerge->setEnabled( !merger->isRunning && unmergeEnabled);
 
