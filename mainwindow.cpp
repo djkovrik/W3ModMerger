@@ -464,7 +464,7 @@ void MainWindow::handleControls()
         mergeEnabled = false;
     }
 
-    //ui->buttonConflicts->setEnabled( !merger->isRunning && mergeEnabled );
+    ui->buttonConflicts->setEnabled( !merger->isRunning );
     ui->buttonMerge->setEnabled( !merger->isRunning && mergeEnabled );
     ui->buttonUnmerge->setEnabled( !merger->isRunning && unmergeEnabled);
 
