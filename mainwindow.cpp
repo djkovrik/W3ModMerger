@@ -411,6 +411,10 @@ void MainWindow::scanModsFolder()
     model = new ModlistModel(modListMergeable, this);
     ui->tableView->setModel(model);
     updateTableView();
+
+    connect(model, &ModlistModel::dataChanged,
+            [=]() { checkForConflicts(); }
+    );
 }
 
 void MainWindow::updateTableView()
