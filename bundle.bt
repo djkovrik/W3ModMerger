@@ -1,0 +1,56 @@
+//------------------------------------------------
+//--- 010 Editor v7.0 Binary Template
+//
+//      File: *.bundle
+//    Author: DJ_Kovrik
+//   Version: 0.1
+//   Purpose: Bundle file extraction 
+//   Credits: Aroth (for his bundle explorer)
+//
+//------------------------------------------------
+
+local int MAGIC_SIZE            = 8;
+local int HEADER_SIZE           = 32;
+local int FILERECORD_SIZE       = 320;
+local int NAME_RESERVED         = 276; // = BLOCK_SIZE - 44
+
+typedef struct HEADER {
+    char magic[MAGIC_SIZE] <bgcolor=0x7777ff>;
+    int total_size         <bgcolor=0x00ee00>;
+    int dummy_size         <bgcolor=0x00ee00>;
+    int data_offset        <bgcolor=0x00ee00>;
+    char unknown[12]       <bgcolor=0x7777ff>;
+};
+
+typedef struct FILERECORD {
+    string filename                                     <bgcolor=0x00ee00>;
+    char dummy[ NAME_RESERVED - Strlen(filename) - 1 ]  <bgcolor=0x7777ff>;
+
+    int   size_uncompressed                             <bgcolor=0x00ee00>; // 4
+    int   size_compressed                               <bgcolor=0x00ee00>; // 4
+    int   global_offset                                 <bgcolor=0x00ee00>; // 4
+    char  zeroes_hash[24]                               <bgcolor=0x7777ff>; // 24
+    int   unknown_var                                   <bgcolor=0x7777ff>; // 4
+    int   compression_algo                              <bgcolor=0x00ee00>; // 4
+};                                                                          // = 44
+
+typedef struct FILEDATA (int size) {
+    char raw[size];
+};
+
+HEADER head;
+
+local int read_offset = HEADER_SIZE;
+local int file_count = 0;
+
+while (read_offset < head.data_offset + HEADER_SIZE) {
+    FILERECORD file;
+    read_offset += sizeof(file);
+    file_count += 1;
+}
+
+local int i;
+for (i = 0; i < file_count; i++) {
+    FSeek(file[i].global_offset);
+    FILEDATA raw(file[i].size_compressed) <bgcolor=0x00FFFF>;
+}
