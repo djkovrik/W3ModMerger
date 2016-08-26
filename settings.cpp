@@ -30,7 +30,7 @@ void Settings::fromWindowToVars()
     cmdPack             = ui->lineCmdPack->text();
     cmdMetadata         = ui->lineCmdMetadata->text();
 
-    isWccSpecified      = pathWcc.endsWith(Constants::EXE_NAME);
+    isWccSpecified      = pathWcc.endsWith(Constants::EXE_NAME, Qt::CaseInsensitive);
     autoInstallEnabled  = ui->checkBoxAutoInstall->isChecked();
     autoCleanEnabled    = ui->checkBoxCleanDirs->isChecked();
     skipErrors          = ui->checkBoxSkipErrors->isChecked();
@@ -95,7 +95,7 @@ void Settings::on_buttonReset_clicked()
     cmdPack             = DEFAULT_PACK;
     cmdMetadata         = DEFAULT_META;
 
-    isWccSpecified      = pathWcc.endsWith(EXE_NAME);
+    isWccSpecified      = pathWcc.endsWith(EXE_NAME, Qt::CaseInsensitive);
     autoInstallEnabled  = true;
     autoCleanEnabled    = true;
     skipErrors          = true;
@@ -148,7 +148,7 @@ void Settings::on_buttonPacked_clicked()
 void Settings::on_lineEditWcc_textChanged(const QString& arg1)
 {
     pathWcc = arg1;
-    isWccSpecified = pathWcc.endsWith(Constants::EXE_NAME);
+    isWccSpecified = pathWcc.endsWith(Constants::EXE_NAME, Qt::CaseInsensitive);
     ui->buttonOk->setEnabled( isWccSpecified );
 
     if ( isWccSpecified ) {

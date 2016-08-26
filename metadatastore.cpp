@@ -57,7 +57,7 @@ void MetadataStore::parse()
     }
 
     for (QString item : fullList) {
-        if ( item.endsWith(".bundle") ) {
+        if ( item.endsWith(".bundle", Qt::CaseInsensitive) ) {
             bundlesList << item;
         }
         else {

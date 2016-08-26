@@ -92,7 +92,7 @@ void Merger::deleteImages()
     while (iter.hasNext()) {
         current = iter.next();
 
-        if (current.endsWith(format)) {
+        if (current.endsWith(format, Qt::CaseInsensitive)) {
             QFile file(current);
             if ( file.remove() ) {
                 toLog("   " + current + " removed.");
@@ -129,7 +129,7 @@ void Merger::unpackAll()
 
             for (FileRecord record : bundle->fileList) {
 
-                if (record.filename.endsWith(".xbm")) {
+                if (record.filename.endsWith(".xbm", Qt::CaseInsensitive)) {
                     continue;
                 }
 

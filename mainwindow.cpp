@@ -380,9 +380,9 @@ void MainWindow::showReport()
 
 void MainWindow::scanModsFolder()
 {
-    ui->lineEditModsPath->setReadOnly( modsFolder.absolutePath().endsWith("Mods") );
+    ui->lineEditModsPath->setReadOnly( modsFolder.absolutePath().endsWith("Mods", Qt::CaseInsensitive) );
 
-    if ( !(modsFolder.exists() && modsFolder.absolutePath().endsWith("Mods")) ) {
+    if ( !(modsFolder.exists() && modsFolder.absolutePath().endsWith("Mods", Qt::CaseInsensitive)) ) {
         ui->tableView->setModel(nullptr);
         return;
     }
