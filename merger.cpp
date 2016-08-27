@@ -58,7 +58,8 @@ void Merger::startMerging()
 void Merger::prepare()
 {
     toLog("MERGING PROCESS STARTED.");
-    toStatusbar("Uncooking...");
+
+    nothingUncooked = uncookQueue.size() == 0;
 
     connect(wcc, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished),
             this, &Merger::uncookNext);
@@ -68,6 +69,8 @@ void Merger::prepare()
 
 void Merger::uncookNext()
 {
+    toStatusbar("Uncooking...");
+
     if ( !uncookQueue.isEmpty() ) {
         QStringList args = uncookQueue.dequeue();
         QString name = args.at(1);
@@ -83,8 +86,6 @@ void Merger::uncookNext()
 
 void Merger::deleteImages()
 {
-    toLog("Deleting unnecessary files...");
-
     QString format = settings->cmdUncook.mid( settings->cmdUncook.indexOf("-imgfmt=") + QString("-imgfmt=").size() , 3 );
     QDirIterator iter(settings->pathUncooked, QDirIterator::Subdirectories);
     QString current;
@@ -104,6 +105,11 @@ void Merger::deleteImages()
 
 void Merger::cookAll()
 {
+    if (nothingUncooked) {
+        unpackAll();
+        return;
+    }
+
     toLog("\nCooking started...");
     toStatusbar("Cooking...");
 
@@ -172,6 +178,11 @@ void Merger::unpackAll()
 
 void Merger::buildCache()
 {
+    if (nothingUncooked) {
+        packAll();
+        return;
+    }
+
     toLog("\nCache building started...");
     toStatusbar("Cache building...");
 

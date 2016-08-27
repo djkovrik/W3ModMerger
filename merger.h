@@ -20,6 +20,7 @@ public:
     ~Merger();
 
     bool isRunning = false;
+    bool nothingUncooked = true;
 
     void startMerging();
     void prepare();
