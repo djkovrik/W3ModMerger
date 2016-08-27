@@ -493,7 +493,10 @@ void MainWindow::cleanWorkingDirs()
 
     uncooked.removeRecursively();
     cooked.removeRecursively();
-    packed.removeRecursively();
+
+    if (settings->autoInstallEnabled) {
+        packed.removeRecursively();
+    }
 }
 
 void MainWindow::checkForConflicts()
