@@ -21,7 +21,7 @@ Mod::Mod(QString path, QObject* parent) : QObject(parent),  folderPath(path)
     hasScripts = checker->exists() && checker->isDir();
 
     checker->setFile(cachePath);
-    hasCache = checker->exists() && checker->isFile();
+    hasCache = checker->exists() && checker->isFile() && checker->size() > 0;
 
     hasMetadata = metadata.isValid();
 
@@ -32,7 +32,6 @@ Mod::Mod(QString path, QObject* parent) : QObject(parent),  folderPath(path)
     }
 
     hasBundles = bundles.size() > 0;
-    isMergeable = hasMetadata && hasBundles;
 
     QDir folder(contentPath);
     folder.setNameFilters(QStringList("*" + RENAME_PFIX));
@@ -40,6 +39,7 @@ Mod::Mod(QString path, QObject* parent) : QObject(parent),  folderPath(path)
     mergedResources = folder.entryInfoList();
 
     modState = ( mergedResources.size() > 0 ) ? MERGED : NOT_MERGED;
+    isMergeable = (hasMetadata && hasBundles) || modState == MERGED;
 
     folder.setNameFilters(QStringList({"*.bundle", "*.store", "*.cache"}));
     folder.setFilter(QDir::Files);
@@ -47,7 +47,7 @@ Mod::Mod(QString path, QObject* parent) : QObject(parent),  folderPath(path)
 
     /* Some checks for notes */
 
-    if ( mergedResources.size() > 0 && tempBundles.size() > 0 ) {
+    if ( mergedResources.size() > 0 && tempBundles.size() > 0 && hasCache) {
         notes.append(WARNING_INCORRECT);
         modState = CORRUPTED;
     }
