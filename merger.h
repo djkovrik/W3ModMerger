@@ -28,17 +28,21 @@ public:
     void deleteImages();
     void cookAll();
     void unpackAll();
-    void buildCache();
+    void cacheBuild();
     void packAll();
     void generateMetadata();
-    void finishing();
+    void finish();
 
 signals:
+    // Full process
     void mergingStarted();
-    void uncookingFinished();
-    void imagesDeleted();
-    void unpackingFinished();
+    void startImagesDeleting();
+    void startCooking();
+    void startCacheBuild();
     void mergingFinished();
+    //No cooking & cache
+    void skipCooking();
+    void skipCacheBuild();
 
     //Messaging
     void toLog(QString message);

@@ -12,9 +12,12 @@ Merger::Merger(const QList<Mod*>& mods, const Settings* s, QObject* parent)
 
     //Merger slots
     connect(this, &Merger::mergingStarted, this, &Merger::prepare);
-    connect(this, &Merger::uncookingFinished, this, &Merger::deleteImages);
-    connect(this, &Merger::imagesDeleted, this, &Merger::cookAll);
-    connect(this, &Merger::unpackingFinished, this, &Merger::buildCache);
+    connect(this, &Merger::startImagesDeleting, this, &Merger::deleteImages);
+    connect(this, &Merger::startCooking, this, &Merger::cookAll);
+    connect(this, &Merger::startCacheBuild, this, &Merger::cacheBuild);
+
+    connect(this, &Merger::skipCooking, this, &Merger::unpackAll);
+    connect(this, &Merger::skipCacheBuild, this, &Merger::packAll);
 
     //Process slots
     connect(wcc, &QProcess::readyReadStandardOutput, this, &Merger::processOutput);
@@ -80,7 +83,7 @@ void Merger::uncookNext()
     }
     else {
         disconnect(wcc, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), 0, 0);
-        emit uncookingFinished();
+        emit startImagesDeleting();
     }
 }
 
@@ -100,16 +103,17 @@ void Merger::deleteImages()
             }
         }
     }
-    emit imagesDeleted();
+
+    if (nothingUncooked) {
+        emit skipCooking();
+    }
+    else {
+        emit startCooking();
+    }
 }
 
 void Merger::cookAll()
 {
-    if (nothingUncooked) {
-        unpackAll();
-        return;
-    }
-
     toLog("\nCooking started...");
     toStatusbar("Cooking...");
 
@@ -173,16 +177,15 @@ void Merger::unpackAll()
         mod->renameMerge();
     }
 
-    emit unpackingFinished();
+    if (nothingUncooked) {
+        emit skipCacheBuild();
+    } else {
+        emit startCacheBuild();
+    }
 }
 
-void Merger::buildCache()
+void Merger::cacheBuild()
 {
-    if (nothingUncooked) {
-        packAll();
-        return;
-    }
-
     toLog("\nCache building started...");
     toStatusbar("Cache building...");
 
@@ -218,13 +221,13 @@ void Merger::generateMetadata()
     disconnect(wcc, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), 0, 0);
 
     connect(wcc, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished),
-            this, &Merger::finishing);
+            this, &Merger::finish);
 
     QStringList args = parseCmdArgs(settings->cmdMetadata);
     wcc->start( settings->pathWcc, args );
 }
 
-void Merger::finishing()
+void Merger::finish()
 {
     wcc->deleteLater();
     toLog("MERGING PROCESS FINISHED!");
