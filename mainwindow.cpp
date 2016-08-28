@@ -256,13 +256,13 @@ void MainWindow::on_mergeFinished()
         sendToLog("Merged pack installed to: " + dest);
     }
 
-    if (settings->autoCleanEnabled) {
-        cleanWorkingDirs();
-    }
-
     showReport();
     scanModsFolder();
     handleControls();
+
+    if (settings->autoCleanEnabled) {
+        cleanWorkingDirs();
+    }
 }
 
 void MainWindow::openInExplorer()
@@ -355,7 +355,7 @@ void MainWindow::writeStoredSettings()
 
 void MainWindow::showReport()
 {
-    QString mergedPack = modsFolder.absolutePath() + Constants::SLASH +
+    QString mergedPack = settings->pathPacked + Constants::SLASH +
                          settings->mergedModName + Constants::CONTENT_PFIX +
                          Constants::METADATA_PFIX;
 
