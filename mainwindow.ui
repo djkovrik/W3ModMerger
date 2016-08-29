@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>W3 Mod Merger v0.2</string>
+   <string>W3 Mod Merger v0.2.1</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">

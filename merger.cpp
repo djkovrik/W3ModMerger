@@ -229,7 +229,6 @@ void Merger::generateMetadata()
 
 void Merger::finish()
 {
-    wcc->deleteLater();
     toLog("MERGING PROCESS FINISHED!");
     toStatusbar(" ");
     isRunning = false;
