@@ -143,7 +143,7 @@ void Merger::unpackAll()
 
 void Merger::cacheBuild()
 {
-    toLog("Bundles unpacked.\nCache building started...");
+    toLog("Cache building started...");
     toStatusbar("Cache building...");
 
     disconnect(wcc, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), 0, 0);
@@ -158,7 +158,7 @@ void Merger::cacheBuild()
 
 void Merger::packAll()
 {
-    toLog("Bundles unpacked.\nPacking process started...");
+    toLog("Packing process started...");
     toStatusbar("Packing...");
 
     disconnect(wcc, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), 0, 0);
