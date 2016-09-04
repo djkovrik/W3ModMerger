@@ -1,5 +1,5 @@
 #include "merger.h"
-#include "singlemod.h"
+#include "unpacker.h"
 
 #include <QDirIterator>
 
@@ -14,10 +14,7 @@ Merger::Merger(const QList<Mod*>& mods, const Settings* s, QObject* parent)
     connect(this, &Merger::mergingStarted, this, &Merger::prepare);
     connect(this, &Merger::startImagesDeleting, this, &Merger::deleteImages);
     connect(this, &Merger::startCooking, this, &Merger::cookAll);
-    connect(this, &Merger::startCacheBuild, this, &Merger::cacheBuild);
-
     connect(this, &Merger::skipCooking, this, &Merger::unpackAll);
-    connect(this, &Merger::skipCacheBuild, this, &Merger::packAll);
 
     //Process slots
     connect(wcc, &QProcess::readyReadStandardOutput, this, &Merger::processOutput);
@@ -50,7 +47,7 @@ void Merger::startMerging()
         toLog("No mods chosen!");
         chosenMods.clear();
         uncookQueue.clear();
-        emit mergingFinished();
+        finish();
     }
     else {
         isRunning = true;
@@ -130,63 +127,23 @@ void Merger::unpackAll()
     toLog("Unpacking bundles...");
     toStatusbar("Unpacking...");
 
-    for (auto mod : chosenMods) {
-
-        for (BundleFile* bundle : mod->bundles) {
-
-            QFile source(bundle->fullPath);
-            source.open(QIODevice::ReadOnly);
-
-            for (FileRecord record : bundle->fileList) {
-
-                if (record.filename.endsWith(".xbm", Qt::CaseInsensitive)) {
-                    continue;
-                }
-
-                toLog("   Extracting: " + record.filename);
-
-                QString dirPath = record.filename.mid(0, record.filename.lastIndexOf('\\'));
-
-                QDir d;
-                d.mkpath(settings->pathCooked + Constants::SLASH + dirPath);
-                QFile result(settings->pathCooked + Constants::SLASH + record.filename);
-
-                if (! result.open(QIODevice::WriteOnly)) {
-                    toLog("File is not opened: " + result.fileName());
-                    continue;
-                }
-
-                QDataStream writer(&result);
-
-                source.seek( record.globalOffset );
-
-                QByteArray encoded = source.read( record.sizeCompressed );
-                QByteArray decoded;
-                decoded.reserve(record.sizeUncompressed);
-
-                unpacker.unpack(record.algorithm,
-                                record.sizeCompressed,
-                                record.sizeUncompressed,
-                                encoded.data(), decoded.data() );
-
-                writer.writeRawData(decoded.data(), record.sizeUncompressed);
-            }
-
-            source.close();
-        }
-        mod->renameMerge();
-    }
+    Unpacker* unpack = new Unpacker(chosenMods, settings);
 
     if (nothingUncooked) {
-        emit skipCacheBuild();
+        connect(unpack, &Unpacker::finished, this, &Merger::packAll);
     } else {
-        emit startCacheBuild();
+        connect(unpack, &Unpacker::finished, this, &Merger::cacheBuild);
     }
+
+    connect(unpack, &Unpacker::toLog, this, &Merger::toLog);
+    connect(unpack, &Unpacker::finished, unpack, &Unpacker::deleteLater);
+
+    unpack->run();
 }
 
 void Merger::cacheBuild()
 {
-    toLog("\nCache building started...");
+    toLog("Bundles unpacked.\nCache building started...");
     toStatusbar("Cache building...");
 
     disconnect(wcc, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), 0, 0);
@@ -201,7 +158,7 @@ void Merger::cacheBuild()
 
 void Merger::packAll()
 {
-    toLog("Packing process started...");
+    toLog("Bundles unpacked.\nPacking process started...");
     toStatusbar("Packing...");
 
     disconnect(wcc, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), 0, 0);

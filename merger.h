@@ -1,7 +1,6 @@
 #ifndef MERGER_H
 #define MERGER_H
 
-#include "settings.h"
 #include "unpacker.h"
 
 #include <QObject>
@@ -38,11 +37,9 @@ signals:
     void mergingStarted();
     void startImagesDeleting();
     void startCooking();
-    void startCacheBuild();
     void mergingFinished();
     //No cooking & cache
     void skipCooking();
-    void skipCacheBuild();
 
     //Messaging
     void toLog(QString message);
@@ -54,7 +51,6 @@ private:
     QQueue<QStringList> uncookQueue;
 
     const Settings* settings;
-    Unpacker unpacker;
     QProcess* wcc;
 
     QStringList parseCmdArgs(QString cmd);
