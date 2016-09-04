@@ -63,10 +63,6 @@ void Unpacker::startUnpacking()
 
             for (FileRecord record : bundle->fileList) {
 
-                if (record.filename.endsWith(".xbm", Qt::CaseInsensitive)) {
-                    continue;
-                }
-
                 toLog("   Extracting: " + record.filename);
 
                 QString dirPath = record.filename.mid(0, record.filename.lastIndexOf('\\'));
