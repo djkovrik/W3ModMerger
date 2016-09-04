@@ -2,6 +2,7 @@
 #define SETTINGS_H
 
 #include <QDialog>
+#include <QLineEdit>
 
 namespace Ui {
     class Settings;
@@ -20,6 +21,8 @@ namespace Constants {
     const QString DEFAULT_CACHE  = "buildcache textures -basedir=%UNCOOK% -platform=pc -db=%COOK%\\cook.db -out=%PACK%\\%NAME%\\content\\texture.cache";
     const QString DEFAULT_PACK   = "pack -dir=%COOK% -outdir=%PACK%\\%NAME%\\content\\";
     const QString DEFAULT_META   = "metadatastore -path=%PACK%\\%NAME%\\content\\";
+
+    const int PATH_LENGTH_LIMIT  = 180;
 }
 
 class Settings : public QDialog
@@ -33,12 +36,17 @@ public:
 private:
     Ui::Settings* ui;
 
+    QString rebuildCmd();
+    void checkFolderLength(const QString& name, const QString& path, QLineEdit* widget);
+
+signals:
+    void toLog(QString message);
+
 public:
     void fromWindowToVars();
     void fromVarsToWindow();
 
     QString currentDir() const;
-    QString rebuildCmd();
 
     // Stored in QSettings
     QString pathWcc;

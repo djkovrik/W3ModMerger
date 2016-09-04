@@ -55,6 +55,19 @@ void Settings::fromVarsToWindow()
     ui->checkBoxCleanDirs->setChecked(autoCleanEnabled);
     ui->checkBoxSkipErrors->setChecked(skipErrors);
     ui->checkBoxSwf->setChecked(dumpSwf);
+
+    // Some additional checks
+    if ( pathWcc.contains(' ') ) {
+        toLog("WARNING: path to wcc_lite.exe contains spaces. This may cause problems with wcc.");
+        ui->lineEditWcc->setStyleSheet("QLineEdit { background: rgb(255, 0, 0); }");
+    }
+    else  {
+        ui->lineEditWcc->setStyleSheet("QLineEdit { background: rgb(0, 255, 0); }");
+    }
+
+    checkFolderLength("Uncooked", pathUncooked, ui->lineEditUncooked);
+    checkFolderLength("Cooked", pathCooked, ui->lineEditCooked);
+    checkFolderLength("Packed", pathPacked, ui->lineEditPacked);
 }
 
 QString Settings::currentDir() const
@@ -77,6 +90,17 @@ QString Settings::rebuildCmd()
     }
 
     return result;
+}
+
+void Settings::checkFolderLength(const QString& name, const QString& path, QLineEdit* widget)
+{
+    if ( path.length() > Constants::PATH_LENGTH_LIMIT ) {
+        toLog("WARNING: path to " + name + " folder exceeds " + QString::number(Constants::PATH_LENGTH_LIMIT) + " symbols. This may cause problems with wcc.");
+        widget->setStyleSheet("QLineEdit { background: rgb(255, 0, 0); }");
+    }
+    else  {
+        widget->setStyleSheet("QLineEdit { background: rgb(0, 255, 0); }");
+    }
 }
 
 void Settings::on_buttonReset_clicked()

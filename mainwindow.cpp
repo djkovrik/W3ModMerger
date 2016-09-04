@@ -17,7 +17,9 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->setupUi(this);
     log = ui->textEditLog;
     ui->treeWidget->hide();
+
     settings = new Settings(this);
+    connect(settings, &Settings::toLog, this, &MainWindow::sendToLog);
     readStoredSettings();
 
     processingLabel = new QLabel;
