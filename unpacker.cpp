@@ -15,9 +15,12 @@
 #include "libs/doboz/Decompressor.h"
 #include "libs/zlib/zstr.hpp"
 
+#include <QThread>
+
 #include <cstring>
 #include <sstream>
 
+// Func from zlib wrapper
 void Unpacker::convertStream(std::istream& is, std::ostream& os)
 {
     const std::streamsize buff_size = 1 << 16;

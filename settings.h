@@ -14,7 +14,7 @@ namespace Constants {
     const QString DIR_UNCOOKED  = "\\Uncooked";
     const QString DIR_COOKED    = "\\Cooked";
     const QString DIR_PACKED    = "\\Packed";
-    const QString DEFAULT_MOD_NAME      = "mod0000_MergedPack";
+    const QString DEFAULT_NAME  = "mod0000_MergedPack";
 
     const QString DEFAULT_UNCOOK = "uncook -indir=%MOD%\\content -outdir=%UNCOOK% -imgfmt=tga -skiperrors -dumpswf";
     const QString DEFAULT_COOK   = "cook -platform=pc -mod=%UNCOOK% -basedir=%UNCOOK% -outdir=%COOK%";
@@ -22,7 +22,7 @@ namespace Constants {
     const QString DEFAULT_PACK   = "pack -dir=%COOK% -outdir=%PACK%\\%NAME%\\content\\";
     const QString DEFAULT_META   = "metadatastore -path=%PACK%\\%NAME%\\content\\";
 
-    const int PATH_LENGTH_LIMIT  = 180;
+    const int PATH_LENGTH_LIMIT  = 150;
 }
 
 class Settings : public QDialog

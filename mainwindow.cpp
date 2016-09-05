@@ -249,7 +249,7 @@ void MainWindow::sendToStatusbar(const QString& str)
 void MainWindow::on_mergeFinished()
 {
     if (settings->autoInstallEnabled) {
-
+        sendToLog("Installation...");
         QString src = settings->pathPacked + Constants::SLASH + settings->mergedModName;
         QString dest = modsFolder.absolutePath() + Constants::SLASH + settings->mergedModName;
 
@@ -312,7 +312,7 @@ void MainWindow::readStoredSettings()
     settings->pathUncooked      = storedSettings.value( "General/UncookedFolder", currentDir + DIR_UNCOOKED ).toString();
     settings->pathCooked        = storedSettings.value( "General/CookedFolder", currentDir + DIR_COOKED ).toString();
     settings->pathPacked        = storedSettings.value( "General/PackedFolder", currentDir + DIR_PACKED ).toString();
-    settings->mergedModName     = storedSettings.value( "General/ModName", DEFAULT_MOD_NAME ).toString();
+    settings->mergedModName     = storedSettings.value( "General/ModName", DEFAULT_NAME ).toString();
 
     settings->cmdUncook         = storedSettings.value( "General/cmdUncook", DEFAULT_UNCOOK ).toString();
     settings->cmdCook           = storedSettings.value( "General/cmdCook", DEFAULT_COOK ).toString();

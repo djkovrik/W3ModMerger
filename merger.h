@@ -1,8 +1,6 @@
 #ifndef MERGER_H
 #define MERGER_H
 
-#include "unpacker.h"
-
 #include <QObject>
 #include <QQueue>
 #include <QProcess>

@@ -4,8 +4,6 @@
 #include "singlemod.h"
 #include "settings.h"
 
-#include <QThread>
-
 class Unpacker : public QObject
 {
     Q_OBJECT

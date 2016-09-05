@@ -111,7 +111,7 @@ void Settings::on_buttonReset_clicked()
     pathUncooked        = currentDir() + DIR_UNCOOKED;
     pathCooked          = currentDir() + DIR_COOKED;
     pathPacked          = currentDir() + DIR_PACKED;
-    mergedModName		= DEFAULT_MOD_NAME;
+    mergedModName		= DEFAULT_NAME;
 
     cmdUncook           = DEFAULT_UNCOOK;
     cmdCook             = DEFAULT_COOK;
