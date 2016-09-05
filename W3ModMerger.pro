@@ -18,7 +18,6 @@ SOURCES += main.cpp\
     bundle.cpp \
     unpacker.cpp \
     libs/lz4.cpp \
-    libs/doboz/Decompressor.cpp \
     singlemod.cpp \
     settings.cpp \
     modlistmodel.cpp \
@@ -30,14 +29,8 @@ HEADERS  += mainwindow.h \
     bundle.h \
     unpacker.h \
     libs/lz4.h \
-    libs/doboz/Common.h \
-    libs/doboz/Decompressor.h \
     singlemod.h \
     settings.h \
-    libs/zlib/strict_fstream.hpp \
-    libs/zlib/zconf.h \
-    libs/zlib/zlib.h \
-    libs/zlib/zstr.hpp \
     modlistmodel.h \
     merger.h \
     modtableview.h
@@ -50,5 +43,5 @@ RESOURCES += \
 
 RC_ICONS = icons\wolfhead.ico
 
-LIBS += -Lc:\Libs\boost_1_61_0\build\lib
-LIBS += -lboost_zlib-mgw51-mt-1_61
+#LIBS += -Lc:\Libs\boost_1_61_0\build\lib
+#LIBS += -lboost_zlib-mgw51-mt-1_61

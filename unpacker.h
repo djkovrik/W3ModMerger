@@ -20,7 +20,6 @@ signals:
 private:
     QList<Mod*> modsList;
     const Settings* settings;
-    void convertStream(std::istream& is, std::ostream& os);
     void unpack(int algo, int sizec, int sizeu, char* buf_compressed, char* buf_uncompressed);
 };
 

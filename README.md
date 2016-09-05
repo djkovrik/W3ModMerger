@@ -10,6 +10,4 @@ Simple mod merging utility for The Witcher 3: Wild Hunt
 
 ### Credits:
 * Luigi Auriemma (QuickBMS author)
-* Attila Afra (Doboz unpacker)
-* mateidavid (Zlib c++ wrapper)
 * lz4.org
