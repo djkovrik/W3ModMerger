@@ -186,8 +186,6 @@ void Merger::generateMetadata()
 
 void Merger::finish()
 {
-    toLog("MERGING PROCESS FINISHED!");
-    toStatusbar(" ");
     isRunning = false;
     emit mergingFinished();
 }

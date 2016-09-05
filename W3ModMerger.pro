@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     settings.cpp \
     modlistmodel.cpp \
     merger.cpp \
-    modtableview.cpp
+    modtableview.cpp \
+    modinstaller.cpp
 
 HEADERS  += mainwindow.h \
     metadatastore.h \
@@ -33,7 +34,8 @@ HEADERS  += mainwindow.h \
     settings.h \
     modlistmodel.h \
     merger.h \
-    modtableview.h
+    modtableview.h \
+    modinstaller.h
 
 FORMS    += mainwindow.ui \
     settings.ui

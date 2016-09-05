@@ -53,6 +53,7 @@ private slots:
     // Misc
     void sendToLog(const QString& str);
     void sendToStatusbar(const QString& str);
+    void installMergedPack();
     void on_mergeFinished();
     void openInExplorer();
     void on_dragAndDrop(int src, int dest);
@@ -79,7 +80,6 @@ private:
     void checkForConflicts();
     void refreshConflictsReport();
     void closeEvent(QCloseEvent* event);
-    bool folderCopy(QString source, QString destination, bool overwrite);
 };
 
 #endif // MAINWINDOW_H

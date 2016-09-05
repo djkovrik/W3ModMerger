@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "modinstaller.h"
 
 #include <QFileDialog>
 #include <QFileInfo>
@@ -110,12 +111,12 @@ void MainWindow::on_treeWidget_customContextMenuRequested(const QPoint& pos)
     menu->addAction(actionCollapse);
 
     connect(actionExpand, &QAction::triggered,
-            [=]() { ui->treeWidget->expandAll(); }
-    );
+    [ = ]() { ui->treeWidget->expandAll(); }
+           );
 
     connect(actionCollapse, &QAction::triggered,
-            [=]() { ui->treeWidget->collapseAll(); }
-    );
+    [ = ]() { ui->treeWidget->collapseAll(); }
+           );
 
     menu->popup(ui->treeWidget->viewport()->mapToGlobal(pos));
 }
@@ -211,7 +212,13 @@ void MainWindow::on_buttonMerge_clicked()
     connect(merger, &Merger::mergingStarted, this, &MainWindow::handleControls);
     connect(merger, &Merger::toLog, this, &MainWindow::sendToLog);
     connect(merger, &Merger::toStatusbar, this, &MainWindow::sendToStatusbar);
-    connect(merger, &Merger::mergingFinished, this, &MainWindow::on_mergeFinished);
+
+    if (settings->autoInstallEnabled) {
+        connect(merger, &Merger::mergingFinished, this, &MainWindow::installMergedPack);
+    }
+    else {
+        connect(merger, &Merger::mergingFinished, this, &MainWindow::on_mergeFinished);
+    }
 
     log->clear();
     merger->startMerging();
@@ -246,18 +253,23 @@ void MainWindow::sendToStatusbar(const QString& str)
     processingLabel->setText(str);
 }
 
+void MainWindow::installMergedPack()
+{
+    sendToLog("Installation...");
+    QString src = settings->pathPacked + Constants::SLASH + settings->mergedModName;
+    QString dest = modsFolder.absolutePath() + Constants::SLASH + settings->mergedModName;
+
+    Installer* install = new Installer(src, dest, true);
+    connect(install, &Installer::finished, this, &MainWindow::on_mergeFinished);
+    connect(install, &Installer::finished, this, [ = ]() { sendToLog("Merged pack installed to: " + dest);});
+    connect(install, &Installer::finished, install, &Installer::deleteLater);
+    install->run();
+}
+
 void MainWindow::on_mergeFinished()
 {
-    if (settings->autoInstallEnabled) {
-        sendToLog("Installation...");
-        QString src = settings->pathPacked + Constants::SLASH + settings->mergedModName;
-        QString dest = modsFolder.absolutePath() + Constants::SLASH + settings->mergedModName;
-
-        folderCopy(src, dest, true);
-
-        sendToLog("Merged pack installed to: " + dest);
-    }
-
+    sendToLog("MERGING PROCESS FINISHED!");
+    sendToStatusbar(" ");
     showReport();
     scanModsFolder();
     handleControls();
@@ -415,8 +427,8 @@ void MainWindow::scanModsFolder()
     updateTableView();
 
     connect(model, &ModlistModel::dataChanged,
-            [=]() { checkForConflicts(); }
-    );
+    [ = ]() { checkForConflicts(); }
+           );
 }
 
 void MainWindow::updateTableView()
@@ -548,46 +560,4 @@ void MainWindow::closeEvent(QCloseEvent* event)
 {
     writeStoredSettings();
     event->accept();
-}
-
-// Some stuff from stackoverflow
-bool MainWindow::folderCopy(QString source, QString destination, bool overwrite)
-{
-    QDir originDirectory(source);
-
-    if (! originDirectory.exists()) {
-        return false;
-    }
-
-    QDir destinationDirectory(destination);
-
-    if(destinationDirectory.exists() && !overwrite) {
-        return false;
-    }
-    else if(destinationDirectory.exists() && overwrite) {
-        destinationDirectory.removeRecursively();
-    }
-
-    originDirectory.mkpath(destination);
-
-    foreach (QString directoryName, originDirectory.entryList(QDir::Dirs | \
-             QDir::NoDotAndDotDot)) {
-        QString destinationPath = destination + "/" + directoryName;
-        originDirectory.mkpath(destinationPath);
-        folderCopy(source + "/" + directoryName, destinationPath, overwrite);
-    }
-
-    foreach (QString fileName, originDirectory.entryList(QDir::Files)) {
-        QFile::copy(source + "/" + fileName, destination + "/" + fileName);
-    }
-
-    /*! Possible race-condition mitigation? */
-    QDir finalDestination(destination);
-    finalDestination.refresh();
-
-    if(finalDestination.exists()) {
-        return true;
-    }
-
-    return false;
 }

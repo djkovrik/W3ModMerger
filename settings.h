@@ -22,7 +22,7 @@ namespace Constants {
     const QString DEFAULT_PACK   = "pack -dir=%COOK% -outdir=%PACK%\\%NAME%\\content\\";
     const QString DEFAULT_META   = "metadatastore -path=%PACK%\\%NAME%\\content\\";
 
-    const int PATH_LENGTH_LIMIT  = 150;
+    const int PATH_LENGTH_LIMIT  = 50;
 }
 
 class Settings : public QDialog
