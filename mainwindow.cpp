@@ -111,12 +111,12 @@ void MainWindow::on_treeWidget_customContextMenuRequested(const QPoint& pos)
     menu->addAction(actionCollapse);
 
     connect(actionExpand, &QAction::triggered,
-    [ = ]() { ui->treeWidget->expandAll(); }
-           );
+        [=]() { ui->treeWidget->expandAll(); }
+    );
 
     connect(actionCollapse, &QAction::triggered,
-    [ = ]() { ui->treeWidget->collapseAll(); }
-           );
+        [=]() { ui->treeWidget->collapseAll(); }
+    );
 
     menu->popup(ui->treeWidget->viewport()->mapToGlobal(pos));
 }
@@ -427,8 +427,8 @@ void MainWindow::scanModsFolder()
     updateTableView();
 
     connect(model, &ModlistModel::dataChanged,
-    [ = ]() { checkForConflicts(); }
-           );
+        [=]() { checkForConflicts(); }
+    );
 }
 
 void MainWindow::updateTableView()
