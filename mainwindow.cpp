@@ -419,6 +419,7 @@ void MainWindow::scanModsFolder()
 
         if (mod->modName == settings->mergedModName) {
             mod->modState = MERGED_PACK;
+            mod->notes.clear();
         }
     }
 
