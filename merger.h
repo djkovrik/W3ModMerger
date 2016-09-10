@@ -55,7 +55,7 @@ private:
     QStringList parseCmdArgs(QString cmd);
     QStringList parseCmdArgs(QString cmd, QString path);
     void processOutput();
-    void pauseMessagebox();
+    void pause(QString message, QString folder, QString path, bool showNextTime);
 };
 
 #endif // MERGER_H

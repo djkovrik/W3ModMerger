@@ -11,7 +11,7 @@ class PauseMessagebox : public QDialog
     Q_OBJECT
 
 public:
-    PauseMessagebox(QString path, QWidget* parent = 0);
+    PauseMessagebox(QString msg, QString dir, QString path, QWidget* parent = 0);
     ~PauseMessagebox();
 
 private:

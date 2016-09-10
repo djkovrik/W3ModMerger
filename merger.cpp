@@ -104,6 +104,11 @@ void Merger::deleteImages()
         }
     }
 
+    pause( "Merging is paused! Please delete unnecessary files and press \"OK\" to continue.",
+           "Uncooked",
+           settings->pathUncooked,
+           true );
+
     if (nothingUncooked) {
         emit skipCooking();
     }
@@ -146,7 +151,10 @@ void Merger::unpackAll()
 
 void Merger::cacheBuild()
 {
-    pauseMessagebox();
+    pause( "Merging is paused again! Please delete unnecessary files and press \"OK\" to continue.",
+           "Cooked",
+           settings->pathCooked,
+           false );
 
     toLog("Cache building started...");
     toStatusbar("Cache building...");
@@ -163,7 +171,10 @@ void Merger::cacheBuild()
 
 void Merger::packAll()
 {
-    pauseMessagebox();
+    pause( "Merging is paused again! Please delete unnecessary files and press \"OK\" to continue.",
+           "Cooked",
+           settings->pathCooked,
+           false );
 
     toLog("Packing process started...");
     toStatusbar("Packing...");
@@ -239,11 +250,19 @@ void Merger::processOutput()
     toLog( QString(wcc->readAllStandardError()) );
 }
 
-void Merger::pauseMessagebox()
+void Merger::pause(QString message, QString folder, QString path, bool showNextTime)
 {
     if (shouldPause) {
-        shouldPause = false;
-        PauseMessagebox pause(settings->pathCooked);
-        pause.exec();
+        shouldPause = showNextTime;
+        PauseMessagebox msg(message, folder, path);
+
+        toStatusbar("Paused...");
+        toLog("\nMerging is paused so you can delete unnecessary files from the " + folder + " folder.");
+
+        if (folder == "Uncooked") {
+            toLog("Please remember which files were deleted because you have to delete the same files from the Cooked folder during the next pause.");
+        }
+
+        msg.exec();
     }
 }

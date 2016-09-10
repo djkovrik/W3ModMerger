@@ -6,13 +6,13 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
-PauseMessagebox::PauseMessagebox(QString path, QWidget* parent) : QDialog(parent)
+PauseMessagebox::PauseMessagebox(QString msg, QString dir, QString path, QWidget* parent) : QDialog(parent)
 {
     setWindowFlags(Qt::WindowTitleHint);
 
-    label = new QLabel("Merging is paused, press \"OK\" to continue.");
+    label = new QLabel(msg);
     okButton = new QPushButton("OK");
-    explorerButton = new QPushButton("Open Cooked folder");
+    explorerButton = new QPushButton("Open " + dir + " folder");
     okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     explorerButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
