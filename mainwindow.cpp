@@ -19,31 +19,40 @@ MainWindow::MainWindow(QWidget* parent) :
     log = ui->textEditLog;
     ui->treeWidget->hide();
 
-    settings = new Settings(this);
-    connect(settings, &Settings::toLog, this, &MainWindow::sendToLog);
-    readStoredSettings();
-
-    processingLabel = new QLabel;
+    // Status bar
+    processingLabel = new QLabel(this);
     processingLabel->setIndent(5);
     processingLabel->setFixedWidth(400);
 
-    mergerLabel = new QLabel;
+    reportLabel = new QLabel(this);
+    reportLabel->setIndent(5);
+    reportLabel->setFixedWidth(150);
+    reportLabel->setText("Mergeable mods: X");
+
+    mergerLabel = new QLabel(this);
     mergerLabel->setAlignment(Qt::AlignHCenter);
     mergerLabel->setMinimumSize(mergerLabel->sizeHint());
     mergerLabel->setIndent(5);
 
     statusBar()->addWidget(processingLabel);
+    statusBar()->addPermanentWidget(reportLabel);
     statusBar()->addPermanentWidget(mergerLabel);
 
-    merger = new Merger(modListMergeable, settings, this);
+    // Settings
+    settings = new Settings(this);
+    connect(settings, &Settings::toLog, this, &MainWindow::sendToLog);
+    readStoredSettings();
 
     if ( !settings->isWccSpecified ) {
         settings->exec();
     }
 
+    // Signals
     connect(ui->tableView, &ModTableView::itemDropped, this, &MainWindow::on_dragAndDrop);
     connect(this, &MainWindow::modsListChanged, this, &MainWindow::checkForConflicts);
 
+    // Misc
+    merger = new Merger(modListMergeable, settings, this);
     handleControls();
 }
 
@@ -478,6 +487,8 @@ void MainWindow::scanModsFolder()
     connect(model, &ModlistModel::dataChanged,
         [=]() { checkForConflicts(); }
     );
+
+    reportLabel->setText("Mergeable mods: " + QString::number(modListMergeable.size()));
 }
 
 void MainWindow::updateTableView()

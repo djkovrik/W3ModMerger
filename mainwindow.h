@@ -67,6 +67,7 @@ private:
 
     // Status bar
     QLabel* mergerLabel;
+    QLabel* reportLabel;
     QLabel* processingLabel;
 
     void readStoredSettings();
