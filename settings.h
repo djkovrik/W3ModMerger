@@ -60,12 +60,14 @@ public:
     QString cmdCache;
     QString cmdPack;
     QString cmdMetadata;
+    QStringList mergingOrder;
 
     bool isWccSpecified;
     bool autoInstallEnabled;
     bool autoCleanEnabled;
     bool skipErrors;
     bool dumpSwf;
+    bool saveMergingOrder;
 
 private slots:
     void on_buttonReset_clicked();

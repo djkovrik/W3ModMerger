@@ -209,6 +209,15 @@ void MainWindow::on_buttonMerge_clicked()
 
     /** MERGING **/
 
+    /// SAVE MERGING ORDER
+    if (settings->saveMergingOrder) {
+
+        settings->mergingOrder.clear();
+        for (auto mod : modListMergeable) {
+            settings->mergingOrder << mod->modName;
+        }
+    }
+
     connect(merger, &Merger::mergingStarted, this, &MainWindow::handleControls);
     connect(merger, &Merger::toLog, this, &MainWindow::sendToLog);
     connect(merger, &Merger::toStatusbar, this, &MainWindow::sendToStatusbar);
@@ -261,7 +270,7 @@ void MainWindow::installMergedPack()
 
     Installer* install = new Installer(src, dest, true);
     connect(install, &Installer::finished, this, &MainWindow::on_mergeFinished);
-    connect(install, &Installer::finished, this, [ = ]() { sendToLog("Merged pack installed to: " + dest);});
+    connect(install, &Installer::finished, this, [=]() { sendToLog("Merged pack installed to: " + dest);});
     connect(install, &Installer::finished, install, &Installer::deleteLater);
     install->run();
 }
@@ -336,6 +345,9 @@ void MainWindow::readStoredSettings()
     settings->autoCleanEnabled   = storedSettings.value( "General/AutoClean", true ).toBool();
     settings->skipErrors         = storedSettings.value( "General/SkipErrors", true ).toBool();
     settings->dumpSwf            = storedSettings.value( "General/DumpSwf", true ).toBool();
+    settings->saveMergingOrder   = storedSettings.value( "General/SaveMergingOrder", true ).toBool();
+
+    settings->mergingOrder       = storedSettings.value( "List/MergingOrder", QVariant() ).toStringList();
 
     ui->lineEditModsPath->setText(path);
     settings->fromVarsToWindow();
@@ -365,6 +377,9 @@ void MainWindow::writeStoredSettings()
     storedSettings.setValue( "General/AutoClean", settings->autoCleanEnabled );
     storedSettings.setValue( "General/SkipErrors", settings->skipErrors );
     storedSettings.setValue( "General/DumpSwf", settings->dumpSwf );
+    storedSettings.setValue( "General/SaveMergingOrder", settings->saveMergingOrder );
+
+    storedSettings.setValue( "List/MergingOrder", settings->mergingOrder );
 }
 
 void MainWindow::showReport()
@@ -421,6 +436,37 @@ void MainWindow::scanModsFolder()
             mod->modState = MERGED_PACK;
             mod->notes.clear();
         }
+    }
+
+    /// RESTORE MERGING ORDER
+    if (settings->saveMergingOrder) {
+
+        QList<Mod*> restoredOrder;
+        QStringList savedOrder = settings->mergingOrder;
+
+        // Move merged pack on top of the list
+        Mod* temp = nullptr;
+        int index = indexByName(Constants::DEFAULT_NAME);
+
+        if (index != -1) {
+            temp = modListMergeable.at(index);
+            modListMergeable.removeAt(index);
+            restoredOrder.append(temp);
+        }
+
+        // Handle the rest of the list
+        for (auto name : savedOrder) {
+            index = indexByName(name);
+
+            if (index != -1) {
+                temp = modListMergeable.at(index);
+                modListMergeable.removeAt(index);
+                restoredOrder.append(temp);
+            }
+        }
+        restoredOrder.append(modListMergeable);
+        modListMergeable.clear();
+        modListMergeable.append(restoredOrder);
     }
 
     model = new ModlistModel(modListMergeable, this);
@@ -555,6 +601,17 @@ void MainWindow::refreshConflictsReport()
         }
     }
     ui->treeWidget->resizeColumnToContents(1);
+}
+
+int MainWindow::indexByName(QString name)
+{
+    for (int i = 0; i < modListMergeable.size(); ++i) {
+        if (modListMergeable.at(i)->modName == name) {
+            return i;
+            break;
+        }
+    }
+    return -1;
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)

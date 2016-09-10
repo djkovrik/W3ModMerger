@@ -204,6 +204,13 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QCheckBox" name="checkBoxMergingOrder">
+              <property name="text">
+               <string>Sa&amp;ve merging order</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </item>

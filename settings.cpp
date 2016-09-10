@@ -35,6 +35,7 @@ void Settings::fromWindowToVars()
     autoCleanEnabled    = ui->checkBoxCleanDirs->isChecked();
     skipErrors          = ui->checkBoxSkipErrors->isChecked();
     dumpSwf             = ui->checkBoxSwf->isChecked();
+    saveMergingOrder    = ui->checkBoxMergingOrder->isChecked();
 }
 
 void Settings::fromVarsToWindow()
@@ -55,6 +56,7 @@ void Settings::fromVarsToWindow()
     ui->checkBoxCleanDirs->setChecked(autoCleanEnabled);
     ui->checkBoxSkipErrors->setChecked(skipErrors);
     ui->checkBoxSwf->setChecked(dumpSwf);
+    ui->checkBoxMergingOrder->setChecked(saveMergingOrder);
 
     // Some additional checks
     if ( pathWcc.contains(' ') ) {
@@ -124,6 +126,9 @@ void Settings::on_buttonReset_clicked()
     autoCleanEnabled    = true;
     skipErrors          = true;
     dumpSwf             = true;
+    saveMergingOrder    = true;
+
+    mergingOrder.clear();
 
     fromVarsToWindow();
 }

@@ -79,6 +79,7 @@ private:
     void cleanWorkingDirs();
     void checkForConflicts();
     void refreshConflictsReport();
+    int indexByName(QString name);
     void closeEvent(QCloseEvent* event);
 };
 
