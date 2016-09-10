@@ -18,6 +18,7 @@ public:
 
     bool isRunning = false;
     bool nothingUncooked = true;
+    bool shouldPause = false;
 
     void startMerging();
     void prepare();
@@ -54,6 +55,7 @@ private:
     QStringList parseCmdArgs(QString cmd);
     QStringList parseCmdArgs(QString cmd, QString path);
     void processOutput();
+    void pauseMessagebox();
 };
 
 #endif // MERGER_H

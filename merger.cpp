@@ -1,11 +1,14 @@
 #include "merger.h"
 #include "unpacker.h"
+#include "pausemessagebox.h"
 
 #include <QDirIterator>
 
 Merger::Merger(const QList<Mod*>& mods, const Settings* s, QObject* parent)
     : QObject(parent), modList(mods), settings(s)
 {
+    shouldPause = settings->showPauseMessage;
+
     wcc = new QProcess(this);
     QString workingDir = settings->pathWcc;
     wcc->setWorkingDirectory(workingDir.remove("wcc_lite.exe"));
@@ -143,6 +146,8 @@ void Merger::unpackAll()
 
 void Merger::cacheBuild()
 {
+    pauseMessagebox();
+
     toLog("Cache building started...");
     toStatusbar("Cache building...");
 
@@ -158,6 +163,8 @@ void Merger::cacheBuild()
 
 void Merger::packAll()
 {
+    pauseMessagebox();
+
     toLog("Packing process started...");
     toStatusbar("Packing...");
 
@@ -230,4 +237,13 @@ void Merger::processOutput()
 {
     toLog( QString(wcc->readAllStandardOutput()) );
     toLog( QString(wcc->readAllStandardError()) );
+}
+
+void Merger::pauseMessagebox()
+{
+    if (shouldPause) {
+        shouldPause = false;
+        PauseMessagebox pause(settings->pathCooked);
+        pause.exec();
+    }
 }

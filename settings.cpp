@@ -36,6 +36,7 @@ void Settings::fromWindowToVars()
     skipErrors          = ui->checkBoxSkipErrors->isChecked();
     dumpSwf             = ui->checkBoxSwf->isChecked();
     saveMergingOrder    = ui->checkBoxMergingOrder->isChecked();
+    showPauseMessage    = ui->checkBoxShowPause->isChecked();
 }
 
 void Settings::fromVarsToWindow()
@@ -57,6 +58,7 @@ void Settings::fromVarsToWindow()
     ui->checkBoxSkipErrors->setChecked(skipErrors);
     ui->checkBoxSwf->setChecked(dumpSwf);
     ui->checkBoxMergingOrder->setChecked(saveMergingOrder);
+    ui->checkBoxShowPause->setChecked(showPauseMessage);
 
     // Some additional checks
     if ( pathWcc.contains(' ') ) {
@@ -127,6 +129,7 @@ void Settings::on_buttonReset_clicked()
     skipErrors          = true;
     dumpSwf             = true;
     saveMergingOrder    = true;
+    showPauseMessage    = false;
 
     mergingOrder.clear();
 

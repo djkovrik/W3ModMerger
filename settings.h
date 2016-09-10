@@ -68,6 +68,7 @@ public:
     bool skipErrors;
     bool dumpSwf;
     bool saveMergingOrder;
+    bool showPauseMessage;
 
 private slots:
     void on_buttonReset_clicked();

@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     modlistmodel.cpp \
     merger.cpp \
     modtableview.cpp \
-    modinstaller.cpp
+    modinstaller.cpp \
+    pausemessagebox.cpp
 
 HEADERS  += mainwindow.h \
     metadatastore.h \
@@ -35,7 +36,8 @@ HEADERS  += mainwindow.h \
     modlistmodel.h \
     merger.h \
     modtableview.h \
-    modinstaller.h
+    modinstaller.h \
+    pausemessagebox.h
 
 FORMS    += mainwindow.ui \
     settings.ui

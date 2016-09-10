@@ -346,6 +346,7 @@ void MainWindow::readStoredSettings()
     settings->skipErrors         = storedSettings.value( "General/SkipErrors", true ).toBool();
     settings->dumpSwf            = storedSettings.value( "General/DumpSwf", true ).toBool();
     settings->saveMergingOrder   = storedSettings.value( "General/SaveMergingOrder", true ).toBool();
+    settings->showPauseMessage   = storedSettings.value( "General/ShowPauseMessage", false ).toBool();
 
     settings->mergingOrder       = storedSettings.value( "List/MergingOrder", QVariant() ).toStringList();
 
@@ -378,6 +379,7 @@ void MainWindow::writeStoredSettings()
     storedSettings.setValue( "General/SkipErrors", settings->skipErrors );
     storedSettings.setValue( "General/DumpSwf", settings->dumpSwf );
     storedSettings.setValue( "General/SaveMergingOrder", settings->saveMergingOrder );
+    storedSettings.setValue( "General/ShowPauseMessage", settings->showPauseMessage );
 
     storedSettings.setValue( "List/MergingOrder", settings->mergingOrder );
 }
