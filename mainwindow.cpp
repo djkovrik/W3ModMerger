@@ -288,7 +288,7 @@ void MainWindow::on_mergeFinished()
     }
 }
 
-void MainWindow::openInExplorer()
+void MainWindow::openInExplorer() const
 {
     QString path = modListMergeable.at(currentRowMenu)->contentPath;
 
@@ -548,7 +548,7 @@ void MainWindow::handleControls()
 }
 
 
-void MainWindow::cleanWorkingDirs()
+void MainWindow::cleanWorkingDirs() const
 {
     QDir uncooked(settings->pathUncooked);
     QDir cooked(settings->pathCooked);
@@ -605,7 +605,7 @@ void MainWindow::refreshConflictsReport()
     ui->treeWidget->resizeColumnToContents(1);
 }
 
-int MainWindow::indexByName(QString name)
+int MainWindow::indexByName(QString name) const
 {
     for (int i = 0; i < modListMergeable.size(); ++i) {
         if (modListMergeable.at(i)->modName == name) {

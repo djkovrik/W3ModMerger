@@ -55,7 +55,7 @@ private slots:
     void sendToStatusbar(const QString& str);
     void installMergedPack();
     void on_mergeFinished();
-    void openInExplorer();
+    void openInExplorer() const;
     void on_dragAndDrop(int src, int dest);
 
 private:
@@ -76,10 +76,10 @@ private:
     void updateTableView();
     void handleOrderButtons();
     void handleControls();
-    void cleanWorkingDirs();
+    void cleanWorkingDirs() const;
     void checkForConflicts();
     void refreshConflictsReport();
-    int indexByName(QString name);
+    int indexByName(QString name) const;
     void closeEvent(QCloseEvent* event);
 };
 

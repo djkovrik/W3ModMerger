@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QThread>
 #include <QProgressDialog>
+#include <QProgressBar>
 
 Installer::Installer(QString src, QString dest, bool over) : source(src), destination(dest), overwrite(over)
 {
@@ -13,7 +14,16 @@ void Installer::run()
 {
     QProgressDialog* progress = new QProgressDialog("Installation, please wait...", 0, 0, 0);
     progress->setWindowModality(Qt::WindowModal);
+    progress->setMinimumWidth(250);
+    progress->setWindowFlags(Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+    QProgressBar* bar = new QProgressBar();
+    bar->setTextVisible(false);
+    bar->setRange(0,0);
+    progress->setBar(bar);
+    progress->show();
+
     connect(this, &Installer::finished, progress, &QProgressDialog::close);
+    connect(this, &Installer::finished, bar, &QProgressBar::deleteLater);
     connect(this, &Installer::finished, progress, &QProgressDialog::deleteLater);
     progress->show();
 
