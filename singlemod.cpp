@@ -43,11 +43,11 @@ Mod::Mod(QString path, QObject* parent) : QObject(parent),  folderPath(path)
 
     folder.setNameFilters(QStringList({"*.bundle", "*.store", "*.cache"}));
     folder.setFilter(QDir::Files);
-    QFileInfoList tempBundles = folder.entryInfoList();
+    QFileInfoList detectedResources = folder.entryInfoList();
 
     /* Some checks for notes */
 
-    if ( mergedResources.size() > 0 && tempBundles.size() > 0 && hasCache) {
+    if ( mergedResources.size() > 0 && detectedResources.size() > 0) {
         notes.append(WARNING_INCORRECT);
         modState = CORRUPTED;
     }
@@ -76,7 +76,9 @@ void Mod::renameMerge()
 {
     using namespace Constants;
 
-    if (hasCache) {
+    checker->setFile(cachePath);
+
+    if ( checker->exists() ) {
         QFile::rename(cachePath, cachePath + RENAME_PFIX);
     }
 
