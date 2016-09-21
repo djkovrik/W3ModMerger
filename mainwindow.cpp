@@ -6,6 +6,9 @@
 #include <QFileInfo>
 #include <QSettings>
 #include <QCloseEvent>
+#include <QTextDocumentWriter>
+#include <QDesktopServices>
+#include <QMessageBox>
 
 #include <algorithm>
 
@@ -128,6 +131,21 @@ void MainWindow::on_treeWidget_customContextMenuRequested(const QPoint& pos)
     );
 
     menu->popup(ui->treeWidget->viewport()->mapToGlobal(pos));
+}
+
+void MainWindow::on_textEditLog_customContextMenuRequested(const QPoint& pos)
+{
+    if (merger->isRunning) {
+        return;
+    }
+
+    QMenu* menu = new QMenu(this);
+    QAction* actionSaveLog = new QAction("Save log as...", this);
+    menu->addAction(actionSaveLog);
+
+    connect(actionSaveLog, &QAction::triggered, this, &MainWindow::saveLogToFile);
+
+    menu->popup(log->viewport()->mapToGlobal(pos));
 }
 
 void MainWindow::on_buttonUp_clicked()
@@ -322,6 +340,32 @@ void MainWindow::on_dragAndDrop(int src, int dest)
     currentRow = dest;
     handleOrderButtons();
     modsListChanged();
+}
+
+void MainWindow::saveLogToFile()
+{
+    QString filename = QFileDialog::getSaveFileName( this, tr("Save Log as..."),
+                                                     QDir::currentPath(),"Text files (*.txt)" );
+
+    if ( filename.isEmpty() ) {
+        return;
+    }
+
+    QTextDocumentWriter txtFile(filename, "plaintext");
+
+    if ( txtFile.write(log->document()) ) {
+
+        QMessageBox msgBox;
+        msgBox.setText("Log file has been created!");
+        msgBox.setInformativeText("Do you want to open it?");
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        msgBox.setIcon(QMessageBox::Information);
+
+        if (msgBox.exec() == QMessageBox::Yes) {
+            QDesktopServices::openUrl(QUrl(filename));
+        }
+    }
 }
 
 /** FUNCTIONS **/

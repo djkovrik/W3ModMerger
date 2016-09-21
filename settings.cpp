@@ -139,7 +139,7 @@ void Settings::on_buttonReset_clicked()
 
 void Settings::on_buttonWcc_clicked()
 {
-    QString directory = QFileDialog::getOpenFileName( this, tr("wcc_lite.exe location::"), QDir::currentPath(), Constants::EXE_NAME );
+    QString directory = QFileDialog::getOpenFileName( this, tr("wcc_lite.exe location:"), QDir::currentPath(), Constants::EXE_NAME );
 
     if ( !directory.isEmpty() ) {
         pathWcc = QDir::toNativeSeparators(directory);

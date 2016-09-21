@@ -43,6 +43,7 @@ private slots:
     void on_tableView_clicked(const QModelIndex& index);
     void on_tableView_customContextMenuRequested(const QPoint& pos);
     void on_treeWidget_customContextMenuRequested(const QPoint& pos);
+    void on_textEditLog_customContextMenuRequested(const QPoint& pos);
     void on_buttonUp_clicked();
     void on_buttonDown_clicked();
     void on_buttonRecommended_clicked();
@@ -57,6 +58,7 @@ private slots:
     void on_mergeFinished();
     void openInExplorer() const;
     void on_dragAndDrop(int src, int dest);
+    void saveLogToFile();
 
 private:
     Ui::MainWindow* ui;
