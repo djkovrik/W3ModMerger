@@ -363,7 +363,7 @@ void MainWindow::saveLogToFile()
         msgBox.setIcon(QMessageBox::Information);
 
         if (msgBox.exec() == QMessageBox::Yes) {
-            QDesktopServices::openUrl(QUrl(filename));
+            QDesktopServices::openUrl(QUrl::fromLocalFile(filename));
         }
     }
 }
