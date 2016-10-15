@@ -55,7 +55,7 @@ Mod::Mod(QString path, QObject* parent) : QObject(parent),  folderPath(path)
     if (isMergeable) {
         for (QString line : metadata.filesList) {
             if (line.indexOf(ICON_CHECK) != -1) {
-                notes.append(WARNING_ICONS);
+                isMergeable = false;
                 break;
             }
 

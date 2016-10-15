@@ -21,7 +21,6 @@ namespace Constants {
     const QString XML_CHECK  = ".xml";
     const QString SWF_CHECK  = ".redswf";
 
-    const QString WARNING_ICONS = "Icons detected, merging is NOT recommended. ";
     const QString WARNING_XMLS  = "XML files detected, merging is NOT recommended. ";
     const QString WARNING_SWFS  = "SWF files detected, merging is NOT recommended. ";
 
