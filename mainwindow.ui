@@ -109,6 +109,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="buttonSelectAll">
+        <property name="text">
+         <string>Select All</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="buttonDeselect">
         <property name="enabled">
          <bool>false</bool>

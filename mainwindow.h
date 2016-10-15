@@ -47,6 +47,7 @@ private slots:
     void on_buttonUp_clicked();
     void on_buttonDown_clicked();
     void on_buttonRecommended_clicked();
+    void on_buttonSelectAll_clicked();
     void on_buttonDeselect_clicked();
     void on_buttonConflicts_toggled(bool checked);
     void on_buttonMerge_clicked();

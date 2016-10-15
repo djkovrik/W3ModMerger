@@ -192,6 +192,17 @@ void MainWindow::on_buttonRecommended_clicked()
     emit modsListChanged();
 }
 
+void MainWindow::on_buttonSelectAll_clicked()
+{
+    for (auto mod : modListMergeable) {
+        mod->checked = true;
+    }
+
+    handleControls();
+
+    emit modsListChanged();
+}
+
 void MainWindow::on_buttonDeselect_clicked()
 {
     for (auto mod : modListMergeable) {
