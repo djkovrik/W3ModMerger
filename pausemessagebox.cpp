@@ -12,7 +12,7 @@ PauseMessagebox::PauseMessagebox(QString msg, QString dir, QString path, QWidget
 
     label = new QLabel(msg);
     okButton = new QPushButton("OK");
-    explorerButton = new QPushButton("Open " + dir + " folder");
+    explorerButton = new QPushButton(tr("Open %1 folder", "Pause messagebox button.").arg(dir) );
     okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     explorerButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 

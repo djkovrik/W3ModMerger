@@ -7,4 +7,7 @@
         <file>icons/down.ico</file>
         <file>icons/up.ico</file>
     </qresource>
+    <qresource prefix="/">
+        <file>translations/W3ModMerger_ru_RU.qm</file>
+    </qresource>
 </RCC>

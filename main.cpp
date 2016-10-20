@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include <QTranslator>
 
 // some stuff from stackoverflow
 void myMessageOutput(QtMsgType type, const QMessageLogContext& context, const QString& msg)
@@ -44,6 +45,13 @@ int main(int argc, char* argv[])
 {
     qInstallMessageHandler(myMessageOutput);
     QApplication a(argc, argv);
+    QTranslator myTranslator;
+
+    if ( QLocale::system().name().contains("ru_RU") ) {
+        myTranslator.load("W3ModMerger_ru_RU", ":/translations");
+    }
+    a.installTranslator(&myTranslator);
+
     MainWindow w;
     w.show();
 

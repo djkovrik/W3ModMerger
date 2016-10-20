@@ -84,16 +84,16 @@ QVariant ModlistModel::data(const QModelIndex& index, int role) const
             break;
         case Columns::STATUS:
             if ( currentMod->modState == MERGED) {
-                result = "Merged";
+                result = tr("Merged", "One of the possible mod states.");
             }
             else if ( currentMod->modState == NOT_MERGED) {
-                result = "Not merged";
+                result = tr("Not merged", "One of the possible mod states.");
             }
             else if (currentMod->modState == MERGED_PACK) {
-                result = "Merged pack";
+                result = tr("Merged pack", "One of the possible mod states.");
             }
             else if (currentMod->modState == CORRUPTED) {
-                result = "Corrupted";
+                result = tr("Corrupted", "One of the possible mod states.");
             }
             break;
         case Columns::NOTES_LAST:
@@ -113,17 +113,17 @@ QVariant ModlistModel::headerData(int section, Qt::Orientation orientation, int 
     if (orientation == Qt::Horizontal) {
         switch (section) {
             case Columns::MOD_NAME:
-                return tr("Mod name");
+                return tr("Mod name", "Mods table column name.");
             case Columns::HAS_BUNDLES:
-                return tr("Bundles");
+                return tr("Bundles", "Mods table column name.");
             case Columns::HAS_CACHE:
-                return tr("Textures");
+                return tr("Textures", "Mods table column name.");
             case Columns::HAS_SCRIPTS:
-                return tr("Scripts");
+                return tr("Scripts", "Mods table column name.");
             case Columns::STATUS:
-                return tr("Status");
+                return tr("Status", "Mods table column name.");
             case Columns::NOTES_LAST:
-                return tr("Notes");
+                return tr("Notes", "Mods table column name.");
         }
     }
 

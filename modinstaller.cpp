@@ -12,7 +12,7 @@ Installer::Installer(QString src, QString dest, bool over) : source(src), destin
 
 void Installer::run()
 {
-    QProgressDialog* progress = new QProgressDialog("Installation, please wait...", 0, 0, 0);
+    QProgressDialog* progress = new QProgressDialog( tr("Installation, please wait...", "Installation progressbar text."), 0, 0, 0);
     progress->setWindowModality(Qt::WindowModal);
     progress->setMinimumWidth(250);
     progress->setWindowFlags(Qt::WindowTitleHint | Qt::WindowCloseButtonHint);

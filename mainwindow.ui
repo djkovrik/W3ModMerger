@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>W3 Mod Merger v0.5</string>
+   <string notr="true">W3 Mod Merger v0.5</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
@@ -22,7 +22,7 @@
     <item>
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
-       <string>Path to The Witcher 3 Mods folder:</string>
+       <string comment="Mod folder path groupbox title.">Path to The Witcher 3 Mods folder:</string>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
@@ -41,7 +41,7 @@
           </size>
          </property>
          <property name="text">
-          <string>...</string>
+          <string notr="true">...</string>
          </property>
         </widget>
        </item>
@@ -62,10 +62,10 @@
          </size>
         </property>
         <property name="statusTip">
-         <string>Change mods order (lower position means higher priority).</string>
+         <string comment="Statusbar hint.">Change mods order (lower position means higher priority).</string>
         </property>
         <property name="text">
-         <string>Up</string>
+         <string comment="UI button.">&amp;Up</string>
         </property>
        </widget>
       </item>
@@ -81,10 +81,10 @@
          </size>
         </property>
         <property name="statusTip">
-         <string>Change mods order (lower position means higher priority).</string>
+         <string comment="Statusbar hint.">Change mods order (lower position means higher priority).</string>
         </property>
         <property name="text">
-         <string>Down</string>
+         <string comment="UI button.">&amp;Down</string>
         </property>
        </widget>
       </item>
@@ -101,17 +101,20 @@
       <item>
        <widget class="QPushButton" name="buttonRecommended">
         <property name="statusTip">
-         <string>Select recommended mods.</string>
+         <string comment="Statusbar hint.">Select recommended mods.</string>
         </property>
         <property name="text">
-         <string>&amp;Recommended</string>
+         <string comment="UI button.">&amp;Recommended</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="buttonSelectAll">
+        <property name="statusTip">
+         <string comment="Statusbar hint.">Select all mods.</string>
+        </property>
         <property name="text">
-         <string>Select All</string>
+         <string comment="UI button.">&amp;Select All</string>
         </property>
        </widget>
       </item>
@@ -121,10 +124,10 @@
          <bool>false</bool>
         </property>
         <property name="statusTip">
-         <string>Deselect all mods.</string>
+         <string comment="Statusbar hint.">Deselect all mods.</string>
         </property>
         <property name="text">
-         <string>&amp;Deselect All</string>
+         <string comment="UI button.">&amp;Deselect All</string>
         </property>
        </widget>
       </item>
@@ -140,8 +143,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="buttonConflicts">
+        <property name="statusTip">
+         <string comment="Statusbar hint.">Show conflicts report.</string>
+        </property>
         <property name="text">
-         <string>&amp;Conflicts</string>
+         <string comment="UI button." extracomment="Shows conflicts report.">&amp;Conflicts</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -167,10 +173,10 @@
          <bool>false</bool>
         </property>
         <property name="statusTip">
-         <string>Merge selected mods.</string>
+         <string comment="Statusbar hint.">Merge selected mods.</string>
         </property>
         <property name="text">
-         <string>&amp;Merge</string>
+         <string comment="UI button." extracomment="Runs main merging process.">&amp;Merge</string>
         </property>
        </widget>
       </item>
@@ -180,10 +186,10 @@
          <bool>true</bool>
         </property>
         <property name="statusTip">
-         <string>Unmerge all previously merged mods.</string>
+         <string comment="Statusbar hint.">Unmerge all previously merged mods.</string>
         </property>
         <property name="text">
-         <string>&amp;Unmerge all</string>
+         <string comment="UI button." extracomment="Runs unmerging.">&amp;Unmerge all</string>
         </property>
        </widget>
       </item>
@@ -272,7 +278,7 @@
         </property>
         <column>
          <property name="text">
-          <string notr="true">Detected conflicts:</string>
+          <string comment="Conflicts report header.">Detected conflicts:</string>
          </property>
         </column>
        </widget>
@@ -308,7 +314,7 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>&amp;File</string>
+     <string comment="Main menu item.">&amp;File</string>
     </property>
     <addaction name="actionSettings"/>
     <addaction name="separator"/>
@@ -319,12 +325,12 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionSettings">
    <property name="text">
-    <string>&amp;Settings...</string>
+    <string comment="Main menu item." extracomment="Opens settings window.">&amp;Settings...</string>
    </property>
   </action>
   <action name="actionExit">
    <property name="text">
-    <string>E&amp;xit</string>
+    <string comment="Main menu item." extracomment="Close program">E&amp;xit</string>
    </property>
   </action>
  </widget>

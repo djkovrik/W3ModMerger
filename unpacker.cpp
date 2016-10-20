@@ -41,13 +41,13 @@ void Unpacker::startUnpacking()
             QFile source(bundle->fullPath);
 
             if (! source.open(QIODevice::ReadOnly)) {
-                toLog("File is not opened: " + bundle->fullPath);
+                toLog( tr("File is not opened: %1", "Warns about failed file opening.").arg(bundle->fullPath) );
                 continue;
             }
 
             for (FileRecord record : bundle->fileList) {
 
-                toLog("   Extracting: " + record.filename);
+                toLog( tr("   Extracting: %1", "File extraction message.").arg(record.filename) );
 
                 QString dirPath = record.filename.mid(0, record.filename.lastIndexOf('\\'));
 
@@ -56,7 +56,7 @@ void Unpacker::startUnpacking()
                 QFile result(settings->pathCooked + Constants::SLASH + record.filename);
 
                 if (! result.open(QIODevice::WriteOnly)) {
-                    toLog("File is not opened: " + result.fileName());
+                    toLog( tr("File is not saved: %1", "Warns about failed file saving.").arg(result.fileName() ));
                     continue;
                 }
 

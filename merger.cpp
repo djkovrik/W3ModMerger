@@ -47,7 +47,7 @@ void Merger::startMerging()
     }
 
     if (chosenMods.size() == 0) {
-        toLog("No mods chosen!");
+        toLog( tr("No mods chosen!", "Log warning message.") );
         chosenMods.clear();
         uncookQueue.clear();
         finish();
@@ -60,7 +60,7 @@ void Merger::startMerging()
 
 void Merger::prepare()
 {
-    toLog("MERGING PROCESS STARTED.");
+    toLog( tr("Merging process started!", "Log message.") );
 
     nothingUncooked = uncookQueue.size() == 0;
 
@@ -72,13 +72,13 @@ void Merger::prepare()
 
 void Merger::uncookNext()
 {
-    toStatusbar("Uncooking...");
+    toStatusbar( tr("Uncooking...", "Statusbar text (you can keep it untranslated if you want).") );
 
     if ( !uncookQueue.isEmpty() ) {
         QStringList args = uncookQueue.dequeue();
         QString name = args.at(1);
         name.remove(0, 7);
-        toLog("Uncooking: " + name);
+        toLog( tr("Uncooking: %1", "Log message (you can keep it untranslated if you want).").arg(name) );
         wcc->start( settings->pathWcc, args );
     }
     else {
@@ -99,12 +99,12 @@ void Merger::deleteImages()
         if (current.endsWith(format, Qt::CaseInsensitive)) {
             QFile file(current);
             if ( file.remove() ) {
-                toLog("   " + current + " removed.");
+                toLog( tr("   %1 removed.", "File removal message.").arg(current) );
             }
         }
     }
 
-    pause( "Merging is paused! Please delete unnecessary files and press \"OK\" to continue.",
+    pause( tr("Merging has been paused! Please delete unnecessary files and press \"OK\" to continue.", "Pause message (check Merger page for more info)."),
            "Uncooked",
            settings->pathUncooked,
            true );
@@ -119,8 +119,8 @@ void Merger::deleteImages()
 
 void Merger::cookAll()
 {
-    toLog("\nCooking started...");
-    toStatusbar("Cooking...");
+    toLog( tr("\nCooking started...", "Log message (you can keep it untranslated if you want)."));
+    toStatusbar( tr("Cooking...", "Statusbar text (you can keep it untranslated if you want).") );
 
     QStringList args = parseCmdArgs(settings->cmdCook);
 
@@ -132,8 +132,8 @@ void Merger::cookAll()
 
 void Merger::unpackAll()
 {
-    toLog("Unpacking bundles...");
-    toStatusbar("Unpacking...");
+    toLog( tr("\nUnpacking bundles...", "Log message (you can keep it untranslated if you want).") );
+    toStatusbar( tr("Unpacking...", "Statusbar text.") );
 
     Unpacker* unpack = new Unpacker(chosenMods, settings);
 
@@ -151,13 +151,13 @@ void Merger::unpackAll()
 
 void Merger::cacheBuild()
 {
-    pause( "Merging is paused again! Please delete unnecessary files and press \"OK\" to continue.",
+    pause( tr("Merging has been paused again! Please delete unnecessary files and press \"OK\" to continue.", "Pause message (check Merger page for more info)."),
            "Cooked",
            settings->pathCooked,
            false );
 
-    toLog("Cache building started...");
-    toStatusbar("Cache building...");
+    toLog( tr("\nCache building started...", "Log message.") );
+    toStatusbar( tr("Cache building...", "Statusbar text.") );
 
     disconnect(wcc, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), 0, 0);
 
@@ -171,13 +171,13 @@ void Merger::cacheBuild()
 
 void Merger::packAll()
 {
-    pause( "Merging is paused again! Please delete unnecessary files and press \"OK\" to continue.",
+    pause( tr("Merging has been paused again! Please delete unnecessary files and press \"OK\" to continue.", "Pause message (check Merger page for more info)."),
            "Cooked",
            settings->pathCooked,
            false );
 
-    toLog("Packing process started...");
-    toStatusbar("Packing...");
+    toLog( tr("\nPacking process started...", "Log message (you can keep it untranslated if you want)."));
+    toStatusbar( tr("Packing...", "Statusbar text (you can keep it untranslated if you want).") );
 
     disconnect(wcc, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), 0, 0);
 
@@ -190,8 +190,8 @@ void Merger::packAll()
 
 void Merger::generateMetadata()
 {
-    toLog("Metadata creation started...");
-    toStatusbar("Generating metadata...");
+    toLog( tr("\nMetadata creation started...", "Log message (you can keep it untranslated if you want).") );
+    toStatusbar( tr("Generating metadata...", "Statusbar text (you can keep it untranslated if you want)."));
 
     disconnect(wcc, static_cast<void(QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), 0, 0);
 
@@ -256,11 +256,11 @@ void Merger::pause(QString message, QString folder, QString path, bool showNextT
         shouldPause = showNextTime;
         PauseMessagebox msg(message, folder, path);
 
-        toStatusbar("Paused...");
-        toLog("\nMerging is paused so you can delete unnecessary files from the " + folder + " folder.");
+        toStatusbar( tr("Paused...", "Statusbar text.") );
+        toLog( tr("\nMerging is paused so you can delete unnecessary files from the %1 folder.", "Pause log message.").arg(folder) );
 
         if (folder == "Uncooked") {
-            toLog("Please remember which files were deleted because you have to delete the same files from the Cooked folder during the next pause.");
+            toLog( tr("Please remember which files were deleted because you have to delete the same files from the Cooked folder during the next pause.", "Pause log message.") );
         }
 
         msg.exec();

@@ -54,5 +54,8 @@ win32 {
     QMAKE_POST_LINK = "$$WINSDK_DIR/bin/x64/mt.exe -manifest $$quote($$WIN_PWD\\$$basename(TARGET).manifest) -outputresource:$$quote($$OUT_PWD_WIN\\${DESTDIR_TARGET};1)"
 }
 
+TRANSLATIONS += \
+    translations\W3ModMerger_ru_RU.ts
+
 #LIBS += -Lc:\Libs\boost_1_61_0\build\lib
 #LIBS += -lboost_zlib-mgw51-mt-1_61

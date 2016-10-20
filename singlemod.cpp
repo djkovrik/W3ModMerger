@@ -48,7 +48,7 @@ Mod::Mod(QString path, QObject* parent) : QObject(parent),  folderPath(path)
     /* Some checks for notes */
 
     if ( mergedResources.size() > 0 && detectedResources.size() > 0) {
-        notes.append(WARNING_INCORRECT);
+        notes.append( tr("Mod contains both merged and unmerged bundles, please delete unnecessary files. ", "Incorrect mod structure warning.") );
         modState = CORRUPTED;
     }
 
@@ -60,12 +60,12 @@ Mod::Mod(QString path, QObject* parent) : QObject(parent),  folderPath(path)
             }
 
             if (line.indexOf(XML_CHECK) != -1) {
-                notes.append(WARNING_XMLS);
+                notes.append( tr("XML files detected, merging is NOT recommended. ", "Warns about detected xmls.") );
                 break;
             }
 
             if (line.indexOf(SWF_CHECK) != -1) {
-                notes.append(WARNING_SWFS);
+                notes.append( tr("SWF files detected, merging is NOT recommended. ", "Warns about detected swfs.") );
                 break;
             }
         }

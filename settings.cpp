@@ -62,7 +62,7 @@ void Settings::fromVarsToWindow()
 
     // Some additional checks
     if ( pathWcc.contains(' ') ) {
-        toLog("WARNING: path to wcc_lite.exe contains spaces. This may cause problems with wcc.");
+        toLog( tr("WARNING: path to wcc_lite.exe contains spaces. This may cause problems with wcc.", "Log warning message.") );
         ui->lineEditWcc->setStyleSheet("QLineEdit { background: rgb(255, 0, 0); }");
     }
     else  {
@@ -99,7 +99,7 @@ QString Settings::rebuildCmd()
 void Settings::checkFolderLength(const QString& name, const QString& path, QLineEdit* widget)
 {
     if ( path.length() > Constants::PATH_LENGTH_LIMIT ) {
-        toLog("WARNING: path to " + name + " folder exceeds " + QString::number(Constants::PATH_LENGTH_LIMIT) + " symbols. This may cause problems with wcc.");
+        toLog( tr( "WARNING: path to %1 folder exceeds %2 symbols. This may cause problems with wcc.", "Log warning message.").arg(name).arg(QString::number(Constants::PATH_LENGTH_LIMIT)) );
         widget->setStyleSheet("QLineEdit { background: rgb(255, 0, 0); }");
     }
     else  {
@@ -139,7 +139,7 @@ void Settings::on_buttonReset_clicked()
 
 void Settings::on_buttonWcc_clicked()
 {
-    QString directory = QFileDialog::getOpenFileName( this, tr("wcc_lite.exe location:"), QDir::currentPath(), Constants::EXE_NAME );
+    QString directory = QFileDialog::getOpenFileName( this, tr("wcc_lite.exe location:", "File selection dialog title."), QDir::currentPath(), Constants::EXE_NAME );
 
     if ( !directory.isEmpty() ) {
         pathWcc = QDir::toNativeSeparators(directory);
@@ -149,7 +149,7 @@ void Settings::on_buttonWcc_clicked()
 
 void Settings::on_buttonUncooked_clicked()
 {
-    QString directory = QFileDialog::getExistingDirectory(this, tr("Uncooked folder path:"), QDir::currentPath() );
+    QString directory = QFileDialog::getExistingDirectory(this, tr("Uncooked folder path:", "Folder selection dialog title."), QDir::currentPath() );
 
     if ( !directory.isEmpty() ) {
         pathUncooked = QDir::toNativeSeparators(directory);
@@ -160,7 +160,7 @@ void Settings::on_buttonUncooked_clicked()
 
 void Settings::on_buttonCooked_clicked()
 {
-    QString directory = QFileDialog::getExistingDirectory(this, tr("Cooked folder path:"), QDir::currentPath() );
+    QString directory = QFileDialog::getExistingDirectory(this, tr("Cooked folder path:", "Folder selection dialog title."), QDir::currentPath() );
 
     if ( !directory.isEmpty() ) {
         pathCooked = QDir::toNativeSeparators(directory);
@@ -169,7 +169,7 @@ void Settings::on_buttonCooked_clicked()
 }
 void Settings::on_buttonPacked_clicked()
 {
-    QString directory = QFileDialog::getExistingDirectory(this, tr("Packed folder path:"), QDir::currentPath() );
+    QString directory = QFileDialog::getExistingDirectory(this, tr("Packed folder path:", "Folder selection dialog title."), QDir::currentPath() );
 
     if ( !directory.isEmpty() ) {
         pathPacked = QDir::toNativeSeparators(directory);

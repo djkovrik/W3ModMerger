@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget* parent) :
     reportLabel = new QLabel(this);
     reportLabel->setIndent(5);
     reportLabel->setFixedWidth(150);
-    reportLabel->setText("Mergeable mods: X");
+    reportLabel->setText( tr("Mergeable mods: X", "User should not see this.") );
 
     mergerLabel = new QLabel(this);
     mergerLabel->setAlignment(Qt::AlignHCenter);
@@ -68,7 +68,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_buttonMods_clicked()
 {
-    QString directory = QFileDialog::getExistingDirectory(this, tr("Mods folder path:"), QDir::currentPath() );
+    QString directory = QFileDialog::getExistingDirectory(this, tr("Mods folder path:", "Folder selection dialog title."), QDir::currentPath() );
 
     if ( !directory.isEmpty() ) {
         ui->lineEditModsPath->setText( QDir::toNativeSeparators(directory) );
@@ -107,7 +107,7 @@ void MainWindow::on_tableView_customContextMenuRequested(const QPoint& pos)
     }
 
     QMenu* menu = new QMenu(this);
-    QAction* action = new QAction("Open in Explorer", this);
+    QAction* action = new QAction( tr("Open in Explorer", "Mod context menu item."), this);
     connect(action, &QAction::triggered, this, &MainWindow::openInExplorer);
     menu->addAction(action);
     menu->popup(ui->tableView->viewport()->mapToGlobal(pos));
@@ -116,8 +116,8 @@ void MainWindow::on_tableView_customContextMenuRequested(const QPoint& pos)
 void MainWindow::on_treeWidget_customContextMenuRequested(const QPoint& pos)
 {
     QMenu* menu = new QMenu(this);
-    QAction* actionExpand = new QAction("Expand All", this);
-    QAction* actionCollapse = new QAction("Collapse All", this);
+    QAction* actionExpand = new QAction( tr("Expand All", "Conflicts report context menu item."), this);
+    QAction* actionCollapse = new QAction( tr("Collapse All", "Conflicts report context menu item."), this);
 
     menu->addAction(actionExpand);
     menu->addAction(actionCollapse);
@@ -140,7 +140,7 @@ void MainWindow::on_textEditLog_customContextMenuRequested(const QPoint& pos)
     }
 
     QMenu* menu = new QMenu(this);
-    QAction* actionSaveLog = new QAction("Save log as...", this);
+    QAction* actionSaveLog = new QAction( tr("Save log as...", "Log context menu item."), this);
     menu->addAction(actionSaveLog);
 
     connect(actionSaveLog, &QAction::triggered, this, &MainWindow::saveLogToFile);
@@ -236,7 +236,7 @@ void MainWindow::on_buttonConflicts_toggled(bool checked)
 void MainWindow::on_buttonMerge_clicked()
 {
     if (!settings->isWccSpecified) {
-        sendToLog("wcc_lite.exe not found! Please check Mod Merger settings");
+        sendToLog( tr("wcc_lite.exe not found! Please check Mod Merger settings", "Log warning message.") );
         return;
     }
 
@@ -275,7 +275,7 @@ void MainWindow::on_buttonUnmerge_clicked()
 {
     for (auto mod : modListMergeable)
         if (mod->modState == MERGED) {
-            sendToLog("Unmerging " + mod->modName + "...");
+            sendToLog( tr("Unmerging %1%2", "Log message (looks like Unmerging modName...)").arg(mod->modName).arg("...") );
             mod->modState = NOT_MERGED;
             mod->renameUnmerge();
         }
@@ -284,8 +284,8 @@ void MainWindow::on_buttonUnmerge_clicked()
     QDir mergedPack(mergedModFolder);
     mergedPack.removeRecursively();
 
-    sendToLog(mergedModFolder + " removed.");
-    sendToLog("Unmerging finished.");
+    sendToLog( tr("%1 removed.", "Mod removal log message.").arg(mergedModFolder) );
+    sendToLog( tr("Unmerging finished.", "Log message.") );
     scanModsFolder();
     handleControls();
 }
@@ -302,20 +302,20 @@ void MainWindow::sendToStatusbar(const QString& str)
 
 void MainWindow::installMergedPack()
 {
-    sendToLog("Installation...");
+    sendToLog( tr("Installation...", "Log message.") );
     QString src = settings->pathPacked + Constants::SLASH + settings->mergedModName;
     QString dest = modsFolder.absolutePath() + Constants::SLASH + settings->mergedModName;
 
     Installer* install = new Installer(src, dest, true);
     connect(install, &Installer::finished, this, &MainWindow::on_mergeFinished);
-    connect(install, &Installer::finished, this, [=]() { sendToLog("Merged pack installed to: " + dest);});
+    connect(install, &Installer::finished, this, [=]() { sendToLog(  tr("Merged pack installed to: %1", "Log message.").arg(dest) );});
     connect(install, &Installer::finished, install, &Installer::deleteLater);
     install->run();
 }
 
 void MainWindow::on_mergeFinished()
 {
-    sendToLog("MERGING PROCESS FINISHED!");
+    sendToLog( tr("Merging process finished!", "Log message.") );
     sendToStatusbar(" ");
     showReport();
     scanModsFolder();
@@ -355,7 +355,7 @@ void MainWindow::on_dragAndDrop(int src, int dest)
 
 void MainWindow::saveLogToFile()
 {
-    QString filename = QFileDialog::getSaveFileName( this, tr("Save Log as..."),
+    QString filename = QFileDialog::getSaveFileName( this, tr("Save Log as...", "Save dialog title."),
                                                      QDir::currentPath(),"Text files (*.txt)" );
 
     if ( filename.isEmpty() ) {
@@ -460,13 +460,13 @@ void MainWindow::showReport()
     metadataAll.setFile(mergedPack);
     metadataAll.parse();
 
-    sendToLog("Merged files: " + QString::number(metadataAll.filesList.size()));
+    sendToLog( tr("Merged files: %1", "Log message.").arg( QString::number(metadataAll.filesList.size()) ));
 
     for (auto mod : modListMergeable) {
         if (mod->checked) {
             for (QString file : mod->metadata.filesList) {
                 if (!metadataAll.filesList.contains(file)) {
-                    sendToLog("WARNING: " + file + " was not merged! " + "[" + mod->modName + "]");
+                    sendToLog( tr( "WARNING: %1 was not merged! [%2]", "Log warning message. 1 = filename, 2 = modname").arg(file).arg(mod->modName));
                 }
             }
         }
@@ -543,19 +543,19 @@ void MainWindow::scanModsFolder()
         [=]() { checkForConflicts(); }
     );
 
-    reportLabel->setText("Mergeable mods: " + QString::number(modListMergeable.size()));
+    reportLabel->setText( tr("Mergeable mods: %1", "Status bar text.").arg(QString::number(modListMergeable.size())) );
 }
 
 void MainWindow::updateTableView()
 {
     ui->tableView->setColumnWidth(0, 23);
     ui->tableView->setColumnWidth(1, 300);
-    ui->tableView->setColumnWidth(2, 50);
-    ui->tableView->setColumnWidth(3, 55);
-    ui->tableView->setColumnWidth(4, 50);
     ui->tableView->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     ui->tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
     ui->tableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
     ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 }
@@ -605,10 +605,10 @@ void MainWindow::handleControls()
     ui->menuBar->setEnabled( !merger->isRunning );
 
     if (merger->isRunning) {
-        mergerLabel->setText("Merger: running");
+        mergerLabel->setText( tr("Merger: running", "Status bar text, displays current process state.") );
     }
     else {
-        mergerLabel->setText("Merger: not running");
+        mergerLabel->setText( tr("Merger: not running", "Status bar text, displays current process state.") );
     }
     ui->tableView->setFocus();
 }

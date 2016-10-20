@@ -20,12 +20,6 @@ namespace Constants {
     const QString ICON_CHECK = "gui_new\\icons\\inventory";
     const QString XML_CHECK  = ".xml";
     const QString SWF_CHECK  = ".redswf";
-
-    const QString WARNING_XMLS  = "XML files detected, merging is NOT recommended. ";
-    const QString WARNING_SWFS  = "SWF files detected, merging is NOT recommended. ";
-
-    const QString WARNING_INCORRECT =
-        "Mod contains both merged and unmerged bundles, please delete unnecessary files. ";
 }
 
 enum State {NOT_MERGED = 0, MERGED, MERGED_PACK, CORRUPTED};
