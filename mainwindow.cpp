@@ -372,6 +372,8 @@ void MainWindow::saveLogToFile()
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::Yes);
         msgBox.setIcon(QMessageBox::Information);
+        msgBox.setButtonText(QMessageBox::Yes, tr("Yes", "Messagebox button."));
+        msgBox.setButtonText(QMessageBox::No, tr("No", "Messagebox button."));
 
         if (msgBox.exec() == QMessageBox::Yes) {
             QDesktopServices::openUrl(QUrl::fromLocalFile(filename));

@@ -235,31 +235,43 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="463"/>
+        <location filename="../mainwindow.cpp" line="375"/>
+        <source>Yes</source>
+        <comment>Messagebox button.</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="376"/>
+        <source>No</source>
+        <comment>Messagebox button.</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="465"/>
         <source>Merged files: %1</source>
         <comment>Log message.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="469"/>
+        <location filename="../mainwindow.cpp" line="471"/>
         <source>WARNING: %1 was not merged! [%2]</source>
         <comment>Log warning message. 1 = filename, 2 = modname</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="546"/>
+        <location filename="../mainwindow.cpp" line="548"/>
         <source>Mergeable mods: %1</source>
         <comment>Status bar text.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="608"/>
+        <location filename="../mainwindow.cpp" line="611"/>
         <source>Merger: running</source>
         <comment>Status bar text, displays current process state.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="611"/>
+        <location filename="../mainwindow.cpp" line="614"/>
         <source>Merger: not running</source>
         <comment>Status bar text, displays current process state.</comment>
         <translation type="unfinished"></translation>

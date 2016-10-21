@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ru_RU">
+<TS version="2.1" language="ru_RU">
 <context>
     <name>Constants</name>
     <message>
         <source>XML files detected, merging is NOT recommended. </source>
-        <translation>Обнаружены XML файлы, объединять мод не рекомендуется.</translation>
+        <translation type="vanished">Обнаружены XML файлы, объединять мод не рекомендуется.</translation>
     </message>
     <message>
         <source>SWF files detected, merging is NOT recommended. </source>
-        <translation>Обнаружены SWF файлы, объединять мод не рекомендуется.</translation>
+        <translation type="vanished">Обнаружены SWF файлы, объединять мод не рекомендуется.</translation>
     </message>
     <message>
         <source>Mod contains both merged and unmerged bundles, please delete unnecessary files. </source>
-        <translation>Папка с модом содержит обычные и уже объединенные ресурсы, пожалуйста удалите ненужные файлы вручную.</translation>
+        <translation type="vanished">Папка с модом содержит обычные и уже объединенные ресурсы, пожалуйста удалите ненужные файлы вручную.</translation>
     </message>
 </context>
 <context>
@@ -35,7 +35,7 @@
     </message>
     <message>
         <source>Change mods order (lower position means higher priority).</source>
-        <translation>Изменение порядка обработки модов (чем ниже позиция в списке, тем выше приоритет).</translation>
+        <translation type="vanished">Изменение порядка обработки модов (чем ниже позиция в списке, тем выше приоритет).</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="68"/>
@@ -51,7 +51,7 @@
     </message>
     <message>
         <source>Select recommended mods.</source>
-        <translation>Выбрать только рекомендуемые к объединению моды.</translation>
+        <translation type="vanished">Выбрать только рекомендуемые к объединению моды.</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="107"/>
@@ -67,7 +67,7 @@
     </message>
     <message>
         <source>Deselect all mods.</source>
-        <translation>Снять выбор со всех модов.</translation>
+        <translation type="vanished">Снять выбор со всех модов.</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="130"/>
@@ -84,7 +84,7 @@
     </message>
     <message>
         <source>Merge selected mods.</source>
-        <translation>Объединяет выбранные моды в один.</translation>
+        <translation type="vanished">Объединяет выбранные моды в один.</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="179"/>
@@ -95,7 +95,7 @@
     </message>
     <message>
         <source>Unmerge all previously merged mods.</source>
-        <translation>Удаляет объединенную сборку модов и возвращает все файлы к исходному состоянию.</translation>
+        <translation type="vanished">Удаляет объединенную сборку модов и возвращает все файлы к исходному состоянию.</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="65"/>
@@ -270,31 +270,48 @@
         <translation>Открыть данный файл?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="463"/>
+        <location filename="../mainwindow.cpp" line="375"/>
+        <source>Yes</source>
+        <comment>Messagebox button.</comment>
+        <translation>Да</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="376"/>
+        <source>No</source>
+        <comment>Messagebox button.</comment>
+        <translation type="unfinished">Нет</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <comment>Messagebox button</comment>
+        <translation type="vanished">Нет</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="465"/>
         <source>Merged files: %1</source>
         <comment>Log message.</comment>
         <translation>Обработано файлов: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="469"/>
+        <location filename="../mainwindow.cpp" line="471"/>
         <source>WARNING: %1 was not merged! [%2]</source>
         <comment>Log warning message. 1 = filename, 2 = modname</comment>
         <translation>ВНИМАНИЕ: %1 не был объединен! [%2]</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="546"/>
+        <location filename="../mainwindow.cpp" line="548"/>
         <source>Mergeable mods: %1</source>
         <comment>Status bar text.</comment>
         <translation>Доступно модов: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="608"/>
+        <location filename="../mainwindow.cpp" line="611"/>
         <source>Merger: running</source>
         <comment>Status bar text, displays current process state.</comment>
         <translation>Обработка: запущена</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="611"/>
+        <location filename="../mainwindow.cpp" line="614"/>
         <source>Merger: not running</source>
         <comment>Status bar text, displays current process state.</comment>
         <translation>Обработка: не запущена</translation>
@@ -461,27 +478,27 @@ Merging is paused so you can delete unnecessary files from the %1 folder.</sourc
     <name>ModlistModel</name>
     <message>
         <source>Mod name</source>
-        <translation>Название мода</translation>
+        <translation type="vanished">Название мода</translation>
     </message>
     <message>
         <source>Bundles</source>
-        <translation>Архивы</translation>
+        <translation type="vanished">Архивы</translation>
     </message>
     <message>
         <source>Textures</source>
-        <translation>Текстуры</translation>
+        <translation type="vanished">Текстуры</translation>
     </message>
     <message>
         <source>Scripts</source>
-        <translation>Скрипты</translation>
+        <translation type="vanished">Скрипты</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Статус</translation>
+        <translation type="vanished">Статус</translation>
     </message>
     <message>
         <source>Notes</source>
-        <translation>Примечания</translation>
+        <translation type="vanished">Примечания</translation>
     </message>
     <message>
         <location filename="../modlistmodel.cpp" line="87"/>
