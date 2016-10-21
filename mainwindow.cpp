@@ -367,8 +367,8 @@ void MainWindow::saveLogToFile()
     if ( txtFile.write(log->document()) ) {
 
         QMessageBox msgBox;
-        msgBox.setText("Log file has been created!");
-        msgBox.setInformativeText("Do you want to open it?");
+        msgBox.setText( tr("Log file has been created!", "Messagebox text.") );
+        msgBox.setInformativeText( tr("Do you want to open it?", "Messagebox text (\"it\" means the log file).") );
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::Yes);
         msgBox.setIcon(QMessageBox::Information);
