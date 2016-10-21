@@ -601,6 +601,7 @@ void MainWindow::handleControls()
     ui->treeWidget->setEnabled( !merger->isRunning );
     ui->buttonMods->setEnabled( !merger->isRunning );
     ui->buttonRecommended->setEnabled( !merger->isRunning );
+    ui->buttonSelectAll->setEnabled( !merger->isRunning );
     ui->buttonDeselect->setEnabled( !merger->isRunning );
     ui->menuBar->setEnabled( !merger->isRunning );
 
