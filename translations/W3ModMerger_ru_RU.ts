@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ru_RU">
+<TS version="2.0" language="ru_RU">
 <context>
     <name>Constants</name>
     <message>
         <source>XML files detected, merging is NOT recommended. </source>
-        <translation type="vanished">Обнаружены XML файлы, объединять мод не рекомендуется.</translation>
+        <translation>Обнаружены XML файлы, объединять мод не рекомендуется.</translation>
     </message>
     <message>
         <source>SWF files detected, merging is NOT recommended. </source>
-        <translation type="vanished">Обнаружены SWF файлы, объединять мод не рекомендуется.</translation>
+        <translation>Обнаружены SWF файлы, объединять мод не рекомендуется.</translation>
     </message>
     <message>
         <source>Mod contains both merged and unmerged bundles, please delete unnecessary files. </source>
-        <translation type="vanished">Папка с модом содержит обычные и уже объединенные ресурсы, пожалуйста удалите ненужные файлы вручную.</translation>
+        <translation>Папка с модом содержит обычные и уже объединенные ресурсы, пожалуйста удалите ненужные файлы вручную.</translation>
     </message>
 </context>
 <context>
@@ -35,7 +35,7 @@
     </message>
     <message>
         <source>Change mods order (lower position means higher priority).</source>
-        <translation type="vanished">Изменение порядка обработки модов (чем ниже позиция в списке, тем выше приоритет).</translation>
+        <translation>Изменение порядка обработки модов (чем ниже позиция в списке, тем выше приоритет).</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="68"/>
@@ -51,7 +51,7 @@
     </message>
     <message>
         <source>Select recommended mods.</source>
-        <translation type="vanished">Выбрать только рекомендуемые к объединению моды.</translation>
+        <translation>Выбрать только рекомендуемые к объединению моды.</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="107"/>
@@ -67,7 +67,7 @@
     </message>
     <message>
         <source>Deselect all mods.</source>
-        <translation type="vanished">Снять выбор со всех модов.</translation>
+        <translation>Снять выбор со всех модов.</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="130"/>
@@ -84,7 +84,7 @@
     </message>
     <message>
         <source>Merge selected mods.</source>
-        <translation type="vanished">Объединяет выбранные моды в один.</translation>
+        <translation>Объединяет выбранные моды в один.</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="179"/>
@@ -95,7 +95,7 @@
     </message>
     <message>
         <source>Unmerge all previously merged mods.</source>
-        <translation type="vanished">Удаляет объединенную сборку модов и возвращает все файлы к исходному состоянию.</translation>
+        <translation>Удаляет объединенную сборку модов и возвращает все файлы к исходному состоянию.</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="65"/>
@@ -186,132 +186,138 @@
         <translation>Путь к папке Mods:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="110"/>
+        <location filename="../mainwindow.cpp" line="112"/>
+        <source>Hide from the list</source>
+        <comment>Mod context menu item.</comment>
+        <translation>Скрыть мод</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="117"/>
         <source>Open in Explorer</source>
         <comment>Mod context menu item.</comment>
         <translation>Открыть через Проводник</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="119"/>
+        <location filename="../mainwindow.cpp" line="127"/>
         <source>Expand All</source>
         <comment>Conflicts report context menu item.</comment>
         <translation>Развернуть все</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="120"/>
+        <location filename="../mainwindow.cpp" line="128"/>
         <source>Collapse All</source>
         <comment>Conflicts report context menu item.</comment>
         <translation>Свернуть все</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="143"/>
+        <location filename="../mainwindow.cpp" line="151"/>
         <source>Save log as...</source>
         <comment>Log context menu item.</comment>
         <translation>Сохранить лог...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="239"/>
+        <location filename="../mainwindow.cpp" line="247"/>
         <source>wcc_lite.exe not found! Please check Mod Merger settings</source>
         <comment>Log warning message.</comment>
         <translation>wcc_lite.exe не найден! Пожалуйста, проверье настройки программы.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="278"/>
+        <location filename="../mainwindow.cpp" line="286"/>
         <source>Unmerging %1%2</source>
         <comment>Log message (looks like Unmerging modName...)</comment>
         <translation>Обработка: %1%2</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="287"/>
+        <location filename="../mainwindow.cpp" line="295"/>
         <source>%1 removed.</source>
         <comment>Mod removal log message.</comment>
         <translation>%1 - удален.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="288"/>
+        <location filename="../mainwindow.cpp" line="296"/>
         <source>Unmerging finished.</source>
         <comment>Log message.</comment>
         <translation>Обработка завершена.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="305"/>
+        <location filename="../mainwindow.cpp" line="313"/>
         <source>Installation...</source>
         <comment>Log message.</comment>
         <translation>Установка...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="311"/>
+        <location filename="../mainwindow.cpp" line="319"/>
         <source>Merged pack installed to: %1</source>
         <comment>Log message.</comment>
         <translation>Сборка модов скопирована в: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="318"/>
+        <location filename="../mainwindow.cpp" line="326"/>
         <source>Merging process finished!</source>
         <comment>Log message.</comment>
         <translation>Процесс объединения модов завершен!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="358"/>
+        <location filename="../mainwindow.cpp" line="373"/>
         <source>Save Log as...</source>
         <comment>Save dialog title.</comment>
         <translation>Сохранить файл как...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="370"/>
+        <location filename="../mainwindow.cpp" line="385"/>
         <source>Log file has been created!</source>
         <comment>Messagebox text.</comment>
         <translation>Лог файл успешно создан!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="371"/>
+        <location filename="../mainwindow.cpp" line="386"/>
         <source>Do you want to open it?</source>
         <comment>Messagebox text (&quot;it&quot; means the log file).</comment>
         <translation>Открыть данный файл?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="375"/>
+        <location filename="../mainwindow.cpp" line="390"/>
         <source>Yes</source>
         <comment>Messagebox button.</comment>
         <translation>Да</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="376"/>
+        <location filename="../mainwindow.cpp" line="391"/>
         <source>No</source>
         <comment>Messagebox button.</comment>
-        <translation type="unfinished">Нет</translation>
+        <translation>Нет</translation>
     </message>
     <message>
         <source>No</source>
         <comment>Messagebox button</comment>
-        <translation type="vanished">Нет</translation>
+        <translation>Нет</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="465"/>
+        <location filename="../mainwindow.cpp" line="482"/>
         <source>Merged files: %1</source>
         <comment>Log message.</comment>
         <translation>Обработано файлов: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="471"/>
+        <location filename="../mainwindow.cpp" line="488"/>
         <source>WARNING: %1 was not merged! [%2]</source>
         <comment>Log warning message. 1 = filename, 2 = modname</comment>
         <translation>ВНИМАНИЕ: %1 не был объединен! [%2]</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="548"/>
+        <location filename="../mainwindow.cpp" line="569"/>
         <source>Mergeable mods: %1</source>
         <comment>Status bar text.</comment>
         <translation>Доступно модов: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="611"/>
+        <location filename="../mainwindow.cpp" line="632"/>
         <source>Merger: running</source>
         <comment>Status bar text, displays current process state.</comment>
         <translation>Обработка: запущена</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="614"/>
+        <location filename="../mainwindow.cpp" line="635"/>
         <source>Merger: not running</source>
         <comment>Status bar text, displays current process state.</comment>
         <translation>Обработка: не запущена</translation>
@@ -478,27 +484,27 @@ Merging is paused so you can delete unnecessary files from the %1 folder.</sourc
     <name>ModlistModel</name>
     <message>
         <source>Mod name</source>
-        <translation type="vanished">Название мода</translation>
+        <translation>Название мода</translation>
     </message>
     <message>
         <source>Bundles</source>
-        <translation type="vanished">Архивы</translation>
+        <translation>Архивы</translation>
     </message>
     <message>
         <source>Textures</source>
-        <translation type="vanished">Текстуры</translation>
+        <translation>Текстуры</translation>
     </message>
     <message>
         <source>Scripts</source>
-        <translation type="vanished">Скрипты</translation>
+        <translation>Скрипты</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation type="vanished">Статус</translation>
+        <translation>Статус</translation>
     </message>
     <message>
         <source>Notes</source>
-        <translation type="vanished">Примечания</translation>
+        <translation>Примечания</translation>
     </message>
     <message>
         <location filename="../modlistmodel.cpp" line="87"/>
@@ -662,25 +668,25 @@ Merging is paused so you can delete unnecessary files from the %1 folder.</sourc
         <translation>ВНИМАНИЕ: путь к папке %1 превышает %2 символов. Это может вызвать проблемы в работе wcc.</translation>
     </message>
     <message>
-        <location filename="../settings.cpp" line="142"/>
+        <location filename="../settings.cpp" line="143"/>
         <source>wcc_lite.exe location:</source>
         <comment>File selection dialog title.</comment>
         <translation>Расположение wcc_lite.exe:</translation>
     </message>
     <message>
-        <location filename="../settings.cpp" line="152"/>
+        <location filename="../settings.cpp" line="153"/>
         <source>Uncooked folder path:</source>
         <comment>Folder selection dialog title.</comment>
         <translation>Путь к папке Uncooked:</translation>
     </message>
     <message>
-        <location filename="../settings.cpp" line="163"/>
+        <location filename="../settings.cpp" line="164"/>
         <source>Cooked folder path:</source>
         <comment>Folder selection dialog title.</comment>
         <translation>Путь к папке Cooked:</translation>
     </message>
     <message>
-        <location filename="../settings.cpp" line="172"/>
+        <location filename="../settings.cpp" line="173"/>
         <source>Packed folder path:</source>
         <comment>Folder selection dialog title.</comment>
         <translation>Путь к папке Packed:</translation>

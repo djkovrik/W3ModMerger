@@ -132,6 +132,7 @@ void Settings::on_buttonReset_clicked()
     showPauseMessage    = false;
 
     mergingOrder.clear();
+    hiddenMods.clear();
 
     fromVarsToWindow();
 }

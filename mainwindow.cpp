@@ -107,9 +107,17 @@ void MainWindow::on_tableView_customContextMenuRequested(const QPoint& pos)
     }
 
     QMenu* menu = new QMenu(this);
-    QAction* action = new QAction( tr("Open in Explorer", "Mod context menu item."), this);
-    connect(action, &QAction::triggered, this, &MainWindow::openInExplorer);
-    menu->addAction(action);
+
+    if ( modListMergeable.at(currentRowMenu)->modState == NOT_MERGED ) {
+        QAction* actionHide = new QAction( tr("Hide from the list", "Mod context menu item."), this);
+        connect(actionHide, &QAction::triggered, this, &MainWindow::markAsHidden);
+        menu->addAction(actionHide);
+    }
+
+    QAction* actionExplorer = new QAction( tr("Open in Explorer", "Mod context menu item."), this);
+    connect(actionExplorer, &QAction::triggered, this, &MainWindow::openInExplorer);
+    menu->addAction(actionExplorer);
+
     menu->popup(ui->tableView->viewport()->mapToGlobal(pos));
 }
 
@@ -336,6 +344,13 @@ void MainWindow::openInExplorer() const
     QProcess::startDetached("explorer.exe", args);
 }
 
+void MainWindow::markAsHidden()
+{
+    settings->hiddenMods.append( modListMergeable.at(currentRowMenu)->modName );
+
+    scanModsFolder();
+}
+
 void MainWindow::on_dragAndDrop(int src, int dest)
 {
     if (src < 0 || src > modListMergeable.size() ||
@@ -415,6 +430,7 @@ void MainWindow::readStoredSettings()
     settings->showPauseMessage   = storedSettings.value( "General/ShowPauseMessage", false ).toBool();
 
     settings->mergingOrder       = storedSettings.value( "List/MergingOrder", QVariant() ).toStringList();
+    settings->hiddenMods         = storedSettings.value( "List/HiddenMods", QVariant() ).toStringList();
 
     ui->lineEditModsPath->setText(path);
     settings->fromVarsToWindow();
@@ -448,6 +464,7 @@ void MainWindow::writeStoredSettings()
     storedSettings.setValue( "General/ShowPauseMessage", settings->showPauseMessage );
 
     storedSettings.setValue( "List/MergingOrder", settings->mergingOrder );
+    storedSettings.setValue( "List/HiddenMods", settings->hiddenMods );
 }
 
 void MainWindow::showReport()
@@ -495,6 +512,10 @@ void MainWindow::scanModsFolder()
     for (QFileInfo m : mods) {
         Mod* mod = new Mod(m.absoluteFilePath(), this);
         modListFull.append(mod);
+
+        if ( settings->hiddenMods.contains( mod->modName ) ) {
+            continue;
+        }
 
         if ( (mod->isMergeable || mod->modState == MERGED ) && mod->modName != Constants::MERGED_SCRIPTS_NAME ) {
             modListMergeable.append(mod);

@@ -61,6 +61,7 @@ public:
     QString cmdPack;
     QString cmdMetadata;
     QStringList mergingOrder;
+    QStringList hiddenMods;
 
     bool isWccSpecified;
     bool autoInstallEnabled;

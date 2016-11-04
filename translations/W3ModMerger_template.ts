@@ -151,127 +151,133 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="110"/>
+        <location filename="../mainwindow.cpp" line="112"/>
+        <source>Hide from the list</source>
+        <comment>Mod context menu item.</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="117"/>
         <source>Open in Explorer</source>
         <comment>Mod context menu item.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="119"/>
+        <location filename="../mainwindow.cpp" line="127"/>
         <source>Expand All</source>
         <comment>Conflicts report context menu item.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="120"/>
+        <location filename="../mainwindow.cpp" line="128"/>
         <source>Collapse All</source>
         <comment>Conflicts report context menu item.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="143"/>
+        <location filename="../mainwindow.cpp" line="151"/>
         <source>Save log as...</source>
         <comment>Log context menu item.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="239"/>
+        <location filename="../mainwindow.cpp" line="247"/>
         <source>wcc_lite.exe not found! Please check Mod Merger settings</source>
         <comment>Log warning message.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="278"/>
+        <location filename="../mainwindow.cpp" line="286"/>
         <source>Unmerging %1%2</source>
         <comment>Log message (looks like Unmerging modName...)</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="287"/>
+        <location filename="../mainwindow.cpp" line="295"/>
         <source>%1 removed.</source>
         <comment>Mod removal log message.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="288"/>
+        <location filename="../mainwindow.cpp" line="296"/>
         <source>Unmerging finished.</source>
         <comment>Log message.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="305"/>
+        <location filename="../mainwindow.cpp" line="313"/>
         <source>Installation...</source>
         <comment>Log message.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="311"/>
+        <location filename="../mainwindow.cpp" line="319"/>
         <source>Merged pack installed to: %1</source>
         <comment>Log message.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="318"/>
+        <location filename="../mainwindow.cpp" line="326"/>
         <source>Merging process finished!</source>
         <comment>Log message.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="358"/>
+        <location filename="../mainwindow.cpp" line="373"/>
         <source>Save Log as...</source>
         <comment>Save dialog title.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="370"/>
+        <location filename="../mainwindow.cpp" line="385"/>
         <source>Log file has been created!</source>
         <comment>Messagebox text.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="371"/>
+        <location filename="../mainwindow.cpp" line="386"/>
         <source>Do you want to open it?</source>
         <comment>Messagebox text (&quot;it&quot; means the log file).</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="375"/>
+        <location filename="../mainwindow.cpp" line="390"/>
         <source>Yes</source>
         <comment>Messagebox button.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="376"/>
+        <location filename="../mainwindow.cpp" line="391"/>
         <source>No</source>
         <comment>Messagebox button.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="465"/>
+        <location filename="../mainwindow.cpp" line="482"/>
         <source>Merged files: %1</source>
         <comment>Log message.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="471"/>
+        <location filename="../mainwindow.cpp" line="488"/>
         <source>WARNING: %1 was not merged! [%2]</source>
         <comment>Log warning message. 1 = filename, 2 = modname</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="548"/>
+        <location filename="../mainwindow.cpp" line="569"/>
         <source>Mergeable mods: %1</source>
         <comment>Status bar text.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="611"/>
+        <location filename="../mainwindow.cpp" line="632"/>
         <source>Merger: running</source>
         <comment>Status bar text, displays current process state.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="614"/>
+        <location filename="../mainwindow.cpp" line="635"/>
         <source>Merger: not running</source>
         <comment>Status bar text, displays current process state.</comment>
         <translation type="unfinished"></translation>
@@ -592,25 +598,25 @@ Merging is paused so you can delete unnecessary files from the %1 folder.</sourc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.cpp" line="142"/>
+        <location filename="../settings.cpp" line="143"/>
         <source>wcc_lite.exe location:</source>
         <comment>File selection dialog title.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.cpp" line="152"/>
+        <location filename="../settings.cpp" line="153"/>
         <source>Uncooked folder path:</source>
         <comment>Folder selection dialog title.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.cpp" line="163"/>
+        <location filename="../settings.cpp" line="164"/>
         <source>Cooked folder path:</source>
         <comment>Folder selection dialog title.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../settings.cpp" line="172"/>
+        <location filename="../settings.cpp" line="173"/>
         <source>Packed folder path:</source>
         <comment>Folder selection dialog title.</comment>
         <translation type="unfinished"></translation>

@@ -58,6 +58,7 @@ private slots:
     void installMergedPack();
     void on_mergeFinished();
     void openInExplorer() const;
+    void markAsHidden();
     void on_dragAndDrop(int src, int dest);
     void saveLogToFile();
 
